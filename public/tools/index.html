@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://monkeetools-analytics.monkeetools.workers.dev https://monkeetools-analytics.monkeetools.workers.dev; frame-src https://challenges.cloudflare.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>MonkeeTools: Get Paid Faster, No Signup</title>
+  <meta name="description" content="The toolkit that gets freelancers paid: quotes, invoices, receipts, credit notes, timesheets, packing slips, one connected set. No signup." />
+  <link rel="canonical" href="https://monkeetools.pages.dev/tools/" />
+  <meta name="referrer" content="no-referrer" />
+  <meta property="og:title" content="MonkeeTools: get paid faster, no signup" />
+  <meta property="og:description" content="The toolkit that gets freelancers paid: quotes, invoices, receipts, and more, one connected set. No account, no cookies. PDFs are created in your browser; optional invoice short links use our service." />
+  <meta property="og:url" content="https://monkeetools.pages.dev/tools/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://monkeetools.pages.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MonkeeTools: Private tools for freelancers, no signup" />
+  <meta name="twitter:description" content="One connected set of private document tools for freelancers. No account, no cookies. PDFs are created in your browser; optional invoice short links use our service." />
+  <meta name="twitter:image" content="https://monkeetools.pages.dev/og-image.png" />
+  <link rel="alternate" type="application/rss+xml" title="MonkeeTools changelog" href="https://monkeetools.pages.dev/feed.xml" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MonkeeTools","url":"https://monkeetools.pages.dev/tools/","description":"Private tools for freelancers. No account, no cookies."}</script>
+  <style>
+    :root{--ink:#17232b;--muted:#627078;--paper:#f7f8f7;--card:#fff;--line:#d9dedb;--accent:#e85d3f;--accent-dark:#ba3f26;--navy:#173746;--radius:14px}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    .brandbar{max-width:960px;margin:0 auto;padding:20px 28px 0;display:flex;align-items:center;justify-content:space-between}
+    .brandmark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+    .brandmark .brandlogo{width:30px;height:30px;border-radius:8px;display:block}
+    .brandmark .word{font-weight:800;letter-spacing:-.02em;font-size:17px;display:block;line-height:1.1}
+    .brandmark .tag{font-size:12px;color:var(--muted);font-weight:600}
+    nav{display:flex;gap:18px}
+    nav a{color:var(--ink);font-weight:700;font-size:13px;text-decoration:none}
+    nav a:hover{color:var(--accent-dark)}
+    .wrap{max-width:960px;margin:0 auto;padding:28px 28px 60px}
+    .eyebrow{font:500 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.14em;color:var(--accent-dark);text-transform:uppercase;margin-bottom:14px}
+    h1{font-size:clamp(34px,5vw,54px);letter-spacing:-.04em;line-height:1.04;margin:0 0 14px;font-weight:800;max-width:640px}
+    .lede{color:var(--muted);font-size:16px;line-height:1.6;max-width:560px;margin:0 0 40px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:52px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:10px;transition:transform .15s, box-shadow .15s}
+    a.card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(23,35,43,.10)}
+    .card .icon{font-size:28px}
+    .card h2{margin:0;font-size:18px;letter-spacing:-.02em}
+    .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55;flex:1}
+    .badge{align-self:flex-start;font:500 10px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:20px}
+    .badge.live{background:#e7f4ec;color:#1e6b3a}
+    .badge.paid{background:#fef3e8;color:#9a5b1a}
+    .badge.free{background:#e8f0fe;color:#1a56db}
+    .badge.soon{background:#f1f3f1;color:var(--muted)}
+    .badge.guide{background:#eef1f6;color:var(--navy)}
+    .sec{margin:0 0 10px}
+    .sec:last-child{margin-bottom:0}
+    .sec-h{font-size:22px;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+    .sec-sub{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 22px;max-width:620px}
+    .card .go{font-weight:800;font-size:13px;color:var(--accent-dark)}
+    .card .shot{width:100%;border-radius:8px;border:1px solid var(--line);margin:4px 0 2px;display:block}
+    .suggest{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+    .suggest h2{margin:0 0 8px;font-size:19px;letter-spacing:-.02em}
+    .suggest p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.6}
+    .suggest textarea{width:100%;border:1px solid #cdd4d1;border-radius:8px;padding:11px 12px;min-height:80px;resize:vertical;font:inherit;margin-bottom:12px}
+    .btn{border:0;border-radius:8px;padding:11px 18px;font-weight:800;font-size:13px;background:var(--navy);color:#fff;cursor:pointer}
+    .btn:hover{filter:brightness(1.08)}
+    .btn:disabled{opacity:.6;cursor:default}
+    .fine{font-size:12px;color:var(--muted);margin:10px 0 0}
+    footer{max-width:960px;margin:0 auto;padding:0 28px 30px;color:var(--muted);font-size:13px;text-align:center}
+    footer a{color:var(--accent-dark);font-weight:700;text-decoration:none}
+    .updates{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-top:26px}
+    .updates h2{margin:0 0 4px;font-size:19px;letter-spacing:-.02em}
+    .updates .sub{margin:0 0 8px;color:var(--muted);font-size:13px}
+    .upd{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding:12px 0}
+    .upd:first-of-type{border-top:0}
+    .upd>div{min-width:0;overflow-wrap:anywhere}
+    .upd h3{margin:2px 0 3px;font-size:14px}
+    .upd p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    .cl-tag{flex:none;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-top:3px}
+    .cl-new{background:#e3f2ec;color:#0f766e}.cl-improved{background:#e8eefc;color:#2b4acb}.cl-fixed{background:#fdeee4;color:#b45309}
+    .updates .more{margin:12px 0 0;font-size:13px}
+    .vote-btn{align-self:flex-start;margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-weight:800;font-size:12.5px;color:var(--accent-dark);cursor:pointer;font-family:inherit}
+    .vote-btn:hover:not(:disabled){border-color:var(--accent-dark)}
+    .vote-btn:disabled{opacity:.75;cursor:default;color:var(--muted)}
+    .card[hidden]{display:none}
+    .customize-row{margin:0 0 16px}
+    .customize-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-weight:800;font-size:12.5px;color:var(--accent-dark);cursor:pointer;font-family:inherit}
+    .customize-btn:hover{border-color:var(--accent-dark)}
+    .customize-btn[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .tool-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 20px;max-width:640px}
+    .tool-panel[hidden]{display:none}
+    .tool-panel p{margin:0 0 12px;color:var(--muted);font-size:13px}
+    .tool-panel .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px 16px;margin:0 0 14px}
+    .tool-panel label{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;cursor:pointer}
+    .tool-panel input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent-dark)}
+    .show-all{background:none;border:0;padding:0;font:inherit;font-size:13px;font-weight:800;color:var(--accent-dark);cursor:pointer;text-decoration:underline}
+    @media(max-width:620px){header.brandbar{padding:16px 12px 0;flex-wrap:wrap;row-gap:10px}header.brandbar nav{flex:1 1 100%;overflow:visible}header.brandbar nav a{white-space:nowrap}}
+  </style>
+  <script>window.MONKEE_CHANGELOG=[{"date":"2026-09-12","tag":"new","title":"MonkeeTools launched","detail":"Free invoice generator for freelancers: live totals, multi-currency, tax and discount, PDF download. No account, no cookies \u2014 your invoice data never leaves your browser."},{"date":"2026-09-12","tag":"new","title":"The invoice app that remembers you, no account needed","detail":"Your business details, clients, and invoice history are now saved on your device. Come back and your business is pre-filled, clients autocomplete, and any past invoice can be duplicated with one click. Everything stays in this browser, nothing is uploaded."},{"date":"2026-09-12","tag":"new","title":"Agent mode: pre-fill invoices from a link","detail":"Any software agent can build an invoice by opening a link with parameters in the URL fragment. The fragment never touches a server, the invoice assembles itself client-side, ready to review. /agents/ has the full story: a live example, copy-paste instructions, the parameter reference, a client-side link checker, tested examples, and a machine-readable /llms.txt."},{"date":"2026-09-12","tag":"new","title":"Payment tracking: payment links and paid/unpaid status","detail":"Add your own payment link (e.g. a Stripe payment link) to an invoice and the PDF gets a clickable Pay now button. Invoice history now tracks paid vs unpaid per invoice, shows total outstanding and overdue invoices, all stored on your device only. Your money never touches our servers because there are none."},{"date":"2026-09-12","tag":"new","title":"Client invoice view","detail":"Share a clean read-only invoice page (/view/) with your client: Download PDF, Duplicate in editor, and Create your own free invoice. The invoice travels inside the link itself, nothing is uploaded anywhere. Empty sections, zero Discount and Tax rows, and malformed values are all hidden so clients never see clutter or NaN amounts."},{"date":"2026-09-12","tag":"new","title":"Backup, restore, and CSV export","detail":"The History dialog has Download backup (a JSON file with your business profile, saved clients, and invoice history) and Restore from backup, with validation and confirmation before overwriting. Plus Export CSV: invoice number, issue date, client, total, currency, paid status, and due date, one row per invoice. Your data is portable."},{"date":"2026-09-12","tag":"new","title":"Offline copy: the whole tool as one HTML file","detail":"A fully self-contained download of the invoice generator is linked in the footer. One file, no connection needed, all data still stays in the browser."},{"date":"2026-09-12","tag":"new","title":"Feedback board: public, sealed, and auditable","detail":"Every suggestion and vote is published anonymously on the /feedback/ board, with our replies, permalinks, and one-level threads. New suggestions stay private until a human approves them. Everything is encrypted in your browser (RSA-OAEP + AES-GCM) before it leaves, and /privacy/ documents exactly what the site sends, with steps to verify it yourself."},{"date":"2026-09-13","tag":"new","title":"No-login toolkit for freelancers","detail":"A hand-verified collection of free no-login tools that grew from 21 to 42 across 12 categories (contracts, time tracking, file sharing, PDFs, scheduling, more), with a public listing bar, real self-hosted logos on every card, sticky search and category filters, and a sealed submission form so makers can submit their own tools. A clearly-marked \u2018Worth the signup\u2019 shelf lists the few login-required tools we run MonkeeTools on and vouch for. Two tools that proved too small to vouch for were removed. Listing is free forever."},{"date":"2026-09-13","tag":"new","title":"Recurring invoices","detail":"Save any downloaded invoice as a monthly recurring template. MonkeeTools nudges you when the next one is due and generates it in one click with a fresh number and dates. All on-device, nothing uploaded. Templates render in History, survive backup and restore, and the /tools/ card now correctly says Live."},{"date":"2026-09-13","tag":"new","title":"Payment reminders","detail":"Overdue invoices show a Remind button that drafts a polite nudge email with the amount, due date, and your payment link, and an on-load banner flags your overdue total."},{"date":"2026-09-13","tag":"new","title":"Three invoice designs: Classic, Minimal, Modern","detail":"Pick a design for every invoice from a segmented control. Classic is the original look, Minimal is black and white with quiet thin rules, Modern leads with the terracotta header. The on-screen preview follows your choice, and the design travels with shared links, history duplicates, and backups.","via":"fb-017"},{"date":"2026-09-13","tag":"new","title":"Logo branding for supporters (historical; now free)","detail":"Originally a $7 supporter perk; logo branding is now free. At launch: upload it in Settings, see it in the preview at up to 90px tall, and it prints on all three PDF designs. Stored only in this browser; the donor unlock runs on the honor system since there is no backend to check receipts."},{"date":"2026-09-13","tag":"new","title":"Trade starter invoices","detail":"Start from a trade template and get realistic line items and payment terms for junk hauling, landscaping, outside sales, general contractor, or concrete contractor work. Everything stays editable, and your saved business profile is never overwritten."},{"date":"2026-09-13","tag":"new","title":"More ways to pay: Zelle, Venmo, Cash App, bank transfer","detail":"Save your Zelle, Venmo, and Cash App handles plus account and routing numbers once in your business profile, then tick which ones print on each invoice. They render as one Ways to pay block in the live preview, all three PDF designs, and the client view, alongside the Pay now button. Handles stay on your device. The payment-link field links straight to Stripe's payment-link creation page and remembers what you paste."},{"date":"2026-09-13","tag":"new","title":"Notify me when paid","detail":"Optional per-invoice toggle adds an I've paid button to the client link. The client taps it and their own email or text app opens with a prefilled note to you, including a confirm link that marks the invoice paid in your tracker when you open it. Uses the email in Your contact details. Nothing is detected or verified by us, and the email travels only inside the link fragment."},{"date":"2026-09-13","tag":"new","title":"Text and email your invoice to your client","detail":"After download, fire off the invoice in one tap: the Text client button opens your messaging app with the number and invoice text ready, and the Email client button opens your email app with the client link, amount, due date, and payment link prefilled. Client links can carry an overdue banner with days late and a Pay now button.","via":"Aaron"},{"date":"2026-09-13","tag":"new","title":"Import from CSV and your website","detail":"Paste rows from a spreadsheet or time tracker straight into the invoice, bring a Square customer export into your client list, or use the bookmarklet to pull your business name, contact details, and logo from your own site. Nothing leaves your browser."},{"date":"2026-09-13","tag":"new","title":"Cross-device transfer code","detail":"Send your business profile and client list to another device with a copy-paste code. No account, no sync server. Full invoice history still travels with the backup file."},{"date":"2026-09-13","tag":"new","title":"Community funds: App Store and plushie","detail":"Two community funds in the supporter section: chip in toward Apple's $99/year developer fee and we'll ship a real App Store app when it's covered, or put \u2018plushie\u2019 in the notes and help fund the first manufacturing run of a real Monkee plushie, one shipped to every contributor.","via":"Aaron"},{"date":"2026-09-14","tag":"new","title":"Payment reminder composer","detail":"The Remind button on overdue invoices now opens a composer: pick a polite, firm, or final tone, edit the pre-filled draft (client, invoice, amount, days overdue, client link, payment link), then send from your own email app, or fire a Text client button with an SMS-length version and the client number prefilled."},{"date":"2026-09-14","tag":"new","title":"Scan-to-pay QR code","detail":"When you add a payment link, the invoice now carries a QR code beside the Pay now button, in the preview and printed in the PDF. Clients can scan it from the paper or screen to pay. Generated entirely on your device; nothing is uploaded or fetched."},{"date":"2026-09-14","tag":"new","title":"Mark as paid when you download","detail":"A Mark as paid checkbox sits next to the download button. Tick it and the invoice lands in your on-device history already paid, and the money overview counts it. Unticked invoices still save as unpaid, as before."},{"date":"2026-09-14","tag":"new","title":"Your own reference labels","detail":"Two new optional fields in Invoice details let you name your own reference label (PO number, contract, project code, whatever your client calls it) and its value. It prints on the invoice exactly as you typed it, in the preview, the PDF, and the client link. The label is remembered as a preference; the value is per invoice."},{"date":"2026-09-14","tag":"improved","title":"Spreadsheet-style line items","detail":"One header row (Item, Qty, Rate, Amount) instead of a label on every field, description gets the wide column, every row shows its amount as you type, and a fresh blank row appears the moment you start typing in the last one. Details tuck behind a quiet Add details link."},{"date":"2026-09-14","tag":"improved","title":"Smarter downloads: validation and instant edits","detail":"Hitting Download PDF with a missing business name, client name, or line item no longer just toasts: the exact fields glow red, Settings opens when your business name is the gap, and the message says what's missing. The post-download screen has an Edit this invoice button that drops you straight back into the editor with everything intact."},{"date":"2026-09-14","tag":"improved","title":"Payment section overhaul","detail":"The per-invoice payment toggles are now logo cards (Zelle, Venmo, Cash App, bank) in one equal-sized grid instead of a wrapping checkbox strip, and a grayed-out toggle now says exactly what's missing with a single Add in Settings link. On the invoice itself, enabled methods render as a compact badge row with each provider's mark, QR code and Pay now on the left, Or pay directly with chips in a column on the right, full-width below the totals. Bank transfer stays off until both numbers are saved. Settings now states plainly whether your entries are saved, and the Settings button reads Save on this device when remembering is off. No logo? Your initials appear as a branded monogram, Total due is a bold filled bar, and section labels get letterspaced polish."},{"date":"2026-09-14","tag":"new","title":"Optional 60-second setup tour","detail":"New here? A guided tour now walks you through Settings once: your business details, ways to get paid, and the remember-on-this-device choice. It never starts on its own and never nags. Find it under the headline, or replay it anytime in Settings."},{"date":"2026-09-14","tag":"new","title":"Public product roadmap","detail":"The product roadmap is now a live page at /roadmap/, driven by a data file and tied to the feedback board: every roadmap item links to its vote thread, and priorities are voted on as fb-036. Includes an optional, skippable guided walkthrough of settings completion as a candidate."},{"date":"2026-09-14","tag":"new","title":"Wise is now a first-class payment method","detail":"Wise is now a selectable payment method: save your Wise request link or account email in Settings, then tick the Wise chip on any invoice just like Zelle, Venmo, or Cash App. If you save a Wise request link, the Wise chip becomes a tap-to-pay link your client can use directly. It prints as a Wise chip in the PDF and rides along on client links too. Good for international clients, since Wise receives money like a local in 22 currencies."},{"date":"2026-09-14","tag":"improved","title":"Customer stories, properly told","detail":"The homepage now carries a real customer quote under the headline. The /freelancers/ page turned its quote wall into named stories: Aaron and the junk-hauling template his business inspired, Alejandro as our first real external user who invoiced Brian $300 through the tool, and Lauren Houghton whose feedback sharpened the whole pitch."},{"date":"2026-09-15","tag":"new","title":"A welcome-back hero for returning users","detail":"If this device remembers you, the homepage now greets you by business name and names your last invoice, with one-click buttons to repeat it or start fresh. New visitors still see the standard hero."},{"date":"2026-09-15","tag":"improved","title":"Homepage hero, rebuilt","detail":"New headline, No account. No upload. Just get paid., with copy that finally says one thing once: the badge promises no signup, the subhead explains the remembering, and four bullets name real features (duplicate any invoice, client autocomplete, paid/unpaid tracking, PDF in one click). And there is a monkey hiding behind the badge. Click him."},{"date":"2026-09-15","tag":"improved","title":"Freelancers page, rebuilt","detail":"The hero now shows the actual tool behind the headline, a screenshot of the real invoice preview, with floating badges for the three wow moments (live preview, 3-step repeat, remembers you). The copy was rewritten around the same no-signup promise, the bento card now shows off Zelle, Venmo, Cash App, and Wise as tap-to-pay chips, and the monkey Easter egg moved here too."},{"date":"2026-09-15","tag":"fixed","title":"Small-screen polish","detail":"The header navigation now wraps into two clean rows on phones instead of clipping Settings off the screen edge, and the freelancers hero stat numbers (like the 3 in 3 steps) render at full size on mobile."},{"date":"2026-09-15","tag":"improved","title":"Real payment brand logos","detail":"Payment chips now show the actual Zelle, Venmo, Cash App, and Wise brand marks instead of generic icons, the freelancers page hero carries a payment badge row, and the product screenshot shows the logos on a real invoice."},{"date":"2026-09-15","tag":"new","title":"Preferred payment method","detail":"Tap the star next to a payment method in Settings to mark it as preferred. It then appears first with a PREFERRED tag on the invoice preview, the client view, and the PDF. Tap the star again to unset it. Works with Zelle, Venmo, Cash App, Wise, and your custom payment link."},{"date":"2026-09-15","tag":"new","title":"Document-type pages and a working quote generator","detail":"Five new pages explain the paperwork around invoices: receipts, credit notes, timesheets, and packing slips, each with a real example, FAQs, and honest invoice cross-links. The quote generator is fully working: QUO numbering, valid-until dates, live preview, quote history, and one-click PDF, with no account and nothing uploaded. Your business details carry over from the invoice generator."},{"date":"2026-09-15","tag":"new","title":"Evergreen guide clusters","detail":"The blog is now three evergreen clusters, Getting paid, Invoice fundamentals, and Client billing, plus three cornerstone guides: Invoice anatomy, Payment terms, and Deposits, milestones, and retainers. Copy-paste templates throughout, no email gates."},{"date":"2026-09-15","tag":"new","title":"AI agent handoff, upgraded","detail":"The agents page now ships a copy-paste agent prompt kit, three verified prefill-link examples, and a link checker that warns about invalid discount types, non-HTTPS payment links, and unknown templates. The full parameter reference lives in llms.txt."},{"date":"2026-09-15","tag":"new","title":"Invoice Ninja alternative page","detail":"An honest comparison with Invoice Ninja: five-client free ceiling versus unlimited clients, $14/month Pro, 40+ payment gateways, and where Invoice Ninja's client portal and expense tracking are genuinely stronger."},{"date":"2026-09-15","tag":"improved","title":"Private by construction, front and center","detail":"The privacy claim now leads the marketing: a new homepage section explains that everything runs in your browser, nothing is uploaded, and your data never leaves your device. Privacy here is not a policy, it is the architecture. The same thread runs through the freelancers, agents, about, and tools pages."},{"date":"2026-09-15","tag":"new","title":"Four new document generators: receipts, credit notes, timesheets, packing slips","detail":"The document family is now four working generators on the same shell as the invoice and quote tools: RCP-numbered receipts with payment method and date paid, CN-numbered credit notes with reason codes and negative amounts, weekly timesheets with hourly rates and one-click send-to-invoice, and PS-numbered packing slips with SKU tables, package count, and weight. All share your business profile and client list, keep their own numbering and histories, and download as PDFs with the unified footer."},{"date":"2026-09-15","tag":"new","title":"Quote accent and design now live in Settings","detail":"Quotes respect your saved defaults: accent and design moved into Settings under Defaults for new quotes, and the Clear button restores them instead of resetting to a hardcoded look. The Minimal and Modern design options, which never worked, now apply correctly."},{"date":"2026-09-15","tag":"new","title":"Agent prefill for receipts, credit notes, and packing slips","detail":"AI assistants can now fill in receipts, credit notes, and packing slips from links, joining invoices and quotes. The /agents/ kit documents every parameter, and the link checker validates all five document routes before an agent sends a link."},{"date":"2026-09-15","tag":"new","title":"Guide clusters: 18 new in-depth guides","detail":"The blog grew six full guide clusters: getting paid, invoice fundamentals, client billing, invoice anatomy, payment terms, and deposits, milestones, and retainers. Eighteen substantial articles, each interlinked with its pillar guide, all written for freelancers who want to get paid without the runaround."},{"date":"2026-09-15","tag":"new","title":"Remove MonkeeTools branding","detail":"One $19 payment removes the MonkeeTools footer from every PDF you generate, across all six document tools, forever. Pay from any tool's Settings or the unlock page, enter your license key, done. No account, no signup, nothing uploaded."},{"date":"2026-09-15","tag":"fixed","title":"Payment block now renders with a payment link set","detail":"Setting a payment link used to silently kill the invoice preview's payment section: no Pay now button, no QR code, no payment-method chips, and the per-invoice toggles stayed disabled. The render order is fixed, the toggles now enable and default on when a handle is saved, and the page carries a built-in ?selftest=pay regression check so it can't happen again."},{"date":"2026-09-15","tag":"new","title":"Guided workflow: setup to paid","detail":"The six tools are now organized around how freelancers actually work: a setup-first pipeline (Set up, Quote, Invoice, Chase, Paid) with per-page next-step bars, and the rest of the toolkit tucked into an add-as-you-need row. First visits ask what you do and your biggest headache to tune recommendations; skipping takes you straight to the tools and the choice is remembered."},{"date":"2026-09-15","tag":"improved","title":"Just get paid: the site now says what it is for","detail":"Headlines across the site now lead with getting paid: the homepage opens \u201cJust get paid. No account. No upload.\u201d, the freelancers and tools pages carry the same idea, and onboarding is kickered \u201cLet\u2019s get you paid\u201d. Titles and descriptions lead with getting paid faster, not with free."},{"date":"2026-09-15","tag":"improved","title":"Setup comes first for new visitors","detail":"First-time visitors now land on setup, and the workflow rail keeps Set up marked as the current step until the essentials exist: business name, a way to get paid, and one client. Once setup is done the rail follows the page again."},{"date":"2026-09-15","tag":"improved","title":"Payment link, captured at onboarding","detail":"First run now asks \u201cHow do clients pay you?\u201d as an optional, skippable step, so the Pay now button and QR code are on from the very first invoice. There is also a quick-entry payment-link field right in the invoice flow. The link is only remembered on the device if the visitor opts into Remember on this device."},{"date":"2026-09-15","tag":"new","title":"Get-paid toolkit: payable invoices, automatic chasing, paid loop","detail":"Downloading an invoice now checks it has a way to pay (payment link, bank, Zelle, Venmo, Cash App, or Wise) and offers to add one first; the QR code is bigger for scanning. Overdue invoices trigger a nudge banner with a snooze option and a one-tap reminder composer (email, SMS, or WhatsApp), and the home screen shows what you are owed. Long payment terms get a gentle coaching hint, a one-tap late-fee clause feeds computed fees into firm reminders, quotes can ask for a 50% deposit and convert to invoices in one tap, and marking paid now stamps the date, totals what you collected this month, and offers a receipt."},{"date":"2026-09-15","tag":"improved","title":"About page, rewritten around getting paid","detail":"The team photos moved to the top of the page, the story now centers on getting paid instead of paperwork, and both bios got real backgrounds: Brian's path from sales engineering to founding a bootstrapped LinkedIn growth business, and Monkee's job description as CEO."},{"date":"2026-09-16","tag":"new","title":"Get quotes signed","detail":"The quote download screen now offers a one-click handoff to Docracy: free e-signing with no account, documents delete themselves after 9 days. Your quote is still built entirely in your browser; the handoff says plainly that collecting a signature means the document leaves your browser."},{"date":"2026-09-16","tag":"new","title":"Email finder: reach the client who went quiet","detail":"New free tool at /email-finder/. Give it a name and, if you have it, their website, and it surfaces only email addresses the person or company actually published, on their own site or a page about them. Never guesses, never stores your searches, 3 lookups a day. Built for one job: getting an unpaid invoice in front of someone who can pay it."},{"date":"2026-09-17","tag":"improved","title":"Client links are shorter, payment buttons are tappable","detail":"The link you send a client is now compressed (noticeably shorter on larger invoices), so it no longer looks like a wall of text in a message. The Venmo, Cash App, and Wise buttons on the client invoice are now tappable and open the right payment page. Links you already sent keep working.","via":"Mike"},{"date":"2026-09-17","tag":"new","title":"One-click short links for client invoices","detail":"The \"Shorten client link\" button now creates a short link (about 62 characters) and copies it to your clipboard automatically. No new tabs, no manual copying. Turn on \"Always shorten client links\" in Settings to make every client link short by default. Short links are hosted on our own server, no third party sees them, and they expire after 30 days.","via":"Brian"},{"date":"2026-09-17","tag":"improved","title":"Invoice link previews look like invoices","detail":"When a client link is shared in chat, the preview now shows an invoice card instead of the generic MonkeeTools promo image."},{"date":"2026-09-17","tag":"new","title":"Brand Pack: one $19 key unlocks the email finder and removes PDF footers","detail":"The email finder now runs on a $19 one-time Brand Pack license key: the same key that removes the MonkeeTools footer from document PDFs. No account, no login; enter it once per device and it is re-verified on every lookup."},{"date":"2026-09-17","tag":"improved","title":"Prefill links land on your invoice, with a plain-English banner","detail":"Opening a prefilled invoice link now shows a banner naming it as yours (\"We made a sample invoice for ...\") and takes you straight to it, instead of dropping you at the top of the page. Built for outreach gift links so first-time recipients see the invoice, not the marketing hero."},{"date":"2026-09-17","tag":"fixed","title":"Saved business profile, banking, and industry no longer dropped on reload","detail":"A startup crash was aborting the page before your saved details loaded, so reloads came back blank even though everything was stored on your device. Also fixed: onboarding now records the role you pick, skipping the payment-link step keeps your role, and reopening your last invoice no longer loses the bank-details toggle. Nothing for you to do; it just works now."},{"date":"2026-09-17","tag":"new","title":"Our first G2 review: 5 out of 5","detail":"A validated reviewer gave MonkeeTools 5/5 on G2 (\"Effortless, Clean, and Efficient, No Sign-Up Needed!\"), and the quote now leads the customer stories on /freelancers/ with a link to the live review."},{"date":"2026-09-17","tag":"improved","title":"Pay now button names the payment provider, and the client view finally has one","detail":"The Pay now button now says where the money goes (Pay now with Wise, Stripe, or PayPal) in the editor preview, the PDF, and the client view. The client view was missing the button entirely unless the invoice was overdue; it now shows whenever you add a payment link."},{"date":"2026-09-17","tag":"improved","title":"G2 5/5 proof across the site, plus a one-time review nudge","detail":"The footer G2 badge now carries gold 5-star 5/5 treatment linking to our G2 reviews page. The /freelancers/ customer stories replaced the duplicate Alejandro card with Mahad's 5/5 G2 review calling out the real-time PDF preview, and the intro line is now count-agnostic. The homepage hero and the Square, Wave, and Zoho comparison pages now carry a subtle 'Rated 5/5 on G2 by validated reviewers' line linking to the G2 reviews page. After an invoice download completes, the done modal shows a one-time dismissible line inviting a G2 review, shown at most once ever and never blocking the download."},{"date":"2026-09-18","tag":"fixed","title":"Invoice history popup opens again","detail":"The history button (and the Review button on the amount-owed banner) silently did nothing because the history popup was trapped inside the download-confirmation popup's markup, so it could never appear. The popup is now a proper top-level dialog, and it opens even if a saved recurring invoice has corrupt data."},{"date":"2026-09-18","tag":"new","title":"Wise account signup hint in Settings","detail":"The Wise payment field in Settings now shows a signup link when it is empty: no Wise account yet, create one through our affiliate link, described as the cheapest way to get paid by clients abroad. The line hides once you enter your own Wise details, and the client-facing invoice is unchanged."},{"date":"2026-09-18","tag":"improved","title":"Invoice design defaults move to Settings","detail":"Invoice accent and design now live in Settings under Defaults for new invoices, matching quotes. They carry across every invoice you generate instead of resetting to Terracotta and Classic each time, and they are remembered on the device with the rest of the business profile."},{"date":"2026-09-18","tag":"improved","title":"Settings screen, cleaned up","detail":"The Settings modal got a full declutter pass: payment methods are stated as optional once instead of seven times, bank account and routing collapse into one expandable row, the star's job is explained in plain words, and the two supporter options (the former $7 logo unlock (now free) and the $19 Brand Pack) now sit together in one Supporter perks section instead of being split across the page."},{"date":"2026-09-18","tag":"new","title":"Client finder: contact sheets for your next client","detail":"A free discovery tool at /client-finder/: type in a business name and get a contact sheet with their website, published email addresses, phone numbers, key people, and social profiles. Everything is pulled from public pages at lookup time, never guessed, three lookups a day, nothing stored."},{"date":"2026-09-18","tag":"improved","title":"Email finder: stricter sourcing, published success rate","detail":"The finder no longer pulls emails from random pages that merely mention a name: it pins down the prospect's website first and only reads that site's own pages, so a stranger who shares your client's name can never show up. The page now states its measured success rate honestly: 41% when you provide the website (blind-tested on 17 freelancer sites, September 2026)."},{"date":"2026-09-19","tag":"new","title":"Clients can sign quotes right from the link","detail":"No more Docracy links: after downloading a quote you can create a signing link, and your client reviews and signs it on their own phone, no account, nothing uploaded. Their signature travels inside the link itself and comes back to you with a tamper-evident seal; open it to verify, mark the quote accepted, and download the signed PDF with the signature stamped in."},{"date":"2026-09-19","tag":"improved","title":"Smoother first run: guided tour, better tool discovery, easier lookups","detail":"New users get a \"Walk me through it\" button that spotlights each step of their first invoice, business to download. The Email finder and Client finder are now linked in the top nav on every tool page instead of hiding in the footer. Both finders also dropped the every-lookup checkbox: the human check now runs invisibly and only appears if something looks automated. And the client finder recognizes international phone numbers, not just US ones."},{"date":"2026-09-20","tag":"new","title":"Invoice pages built for the trades","detail":"New landing pages for electricians, plumbers, HVAC techs, landscapers, and general contractors: trade-specific line items, the quote-to-invoice-to-paid workflow, and mobile-first language. Also in this pass: removing the last line item now tells you it was cleared instead of silently doing nothing, and returning users with saved profiles now count correctly in the funnel."},{"date":"2026-09-20","tag":"new","title":"Client invoice views now invite the client in","detail":"Every client-facing invoice view now carries a quiet card, 'Send your own invoices. No signup, no account, nothing uploaded,' plus the same attributed link on the quote signing page. Suppressed when the sender paid for brand removal. Also fixed a referral-attribution mismatch: page beacons sent the ?ref= value under a different field name than the dashboard read, so referrals may have been undercounted. The dashboard now counts both fields, including historical tagged visits where present."},{"date":"2026-09-20","tag":"improved","title":"Second invoice in one click","detail":"History's Duplicate is now 'Invoice again,' and the post-download modal has a 'Bill this client again' button: same client, business, and payment setup, a fresh invoice number, today's dates, and blank line items for the new work. The paid flow points straight at it, so the second invoice starts here instead of from a blank form."},{"date":"2026-09-26","tag":"improved","title":"First visit gets straight to the invoice","detail":"New visitors land directly on the invoice form: the first-run popups are gone, and the setup questions now wait politely until after your first download. On phones, a Download PDF bar stays pinned to the bottom while you edit, so the finish line is always visible."},{"date":"2026-09-27","tag":"improved","title":"Post-download offer is the Brand Pack","detail":"The download screen no longer asks for a $7 donation. At the moment of value it now offers the $19 Brand Pack: remove the MonkeeTools footer from every PDF forever and unlock the email finder, with one link to enter a license key if you already bought it. The offer hides once branding is removed."},{"date":"2026-09-27","tag":"fixed","title":"Second invoices that just work","detail":"The New invoice button now always starts a truly blank invoice (it used to silently do nothing), the welcome-back screen leads with starting fresh, the 'Get paid faster' nudge stops after you dismiss it once, the money-owed banner refreshes after every download, and you can mark an invoice paid right from the download screen. Invoice history also gained a blank-invoice button."},{"date":"2026-09-27","tag":"improved","title":"Client invoice pages invite clients to get paid too","detail":"The invoice your client opens now pitches the moment: 'Get paid like this. Create clean invoices in minutes. No signup, no account, nothing uploaded.' Every client view is a chance to turn a viewer into a user."},{"date":"2026-09-28","tag":"fixed","title":"Payment handles are now clickable","detail":"Venmo and Cash App handles on invoices and invoice PDFs are now tap-to-pay links that open the freelancer's public payment profile. Your client taps the handle and lands straight on your Venmo or Cash App page instead of retyping it. (Zelle stays as text: it has no web link.)"},{"date":"2026-09-28","tag":"new","title":"QuickBooks payment links","detail":"Paste a QuickBooks payment link in Settings and invoices get a QuickBooks chip with its logo. Clients tap to pay, and the PDF links the chip to your payment page. Works in the shared client view too."},{"date":"2026-09-28","tag":"fixed","title":"Shared invoice fixes: PDF download, Zelle tap-to-copy, short links","detail":"The shared client view's Download PDF button works again, the Zelle chip now copies the handle on tap instead of doing nothing, client links shorten properly again after the Pages move, and Quote is back in the site nav and footer so it is easy to find."},{"date":"2026-09-30","tag":"fixed","title":"Client-link privacy: shortening is opt-in everywhere; blank rows gone from shared invoices","detail":"Email client and Text client now respect the 'Always shorten client links' setting like Copy client link does: with it off, no shortener request is ever made, and cancelling the Text prompt happens before any networking. The privacy page now documents the short-link service, what it stores (URL, creation time, click count), and that short links never expire. Shared client links also use the same blank-row filter as the editor and PDF, so an untouched row no longer shows up as 'Untitled' on the client view."},{"date":"2026-10-02","tag":"improved","title":"Automated checks and staging before release","detail":"MonkeeTools updates now pass automated verification and staging before production. The first release through the new pipeline is live, alongside privacy wording, interface, and licensing improvements. Deployment checks verify the hosting platform's records and configuration; they do not prove every public page or interaction. Availability monitoring runs independently, and rollback requires a compatible, verified previous release."},{"date":"2026-10-02","tag":"fixed","title":"Start a blank invoice without misleading notices","detail":"On a fresh visit, Create an invoice opens a blank invoice without misleading sample-invoice or pre-filled-from-link notices. Real shared invoice links still import correctly."},{"date":"2026-10-02","tag":"improved","title":"Settings labels match your saving choice","detail":"Settings now distinguishes a profile kept for this visit only from one saved automatically on this device. Save on this device remains an explicit opt-in. This is clearer wording, not a change to your saving choice or storage behavior."},{"date":"2026-10-02","tag":"new","title":"Seven-day invoice-help pilot","detail":"The homepage now offers optional, no-charge help making your next invoice. Email a client name or placeholder, the service, and the amount; we confirm your business name and currency, then return an editable invoice for your review. Emailed details are shared with MonkeeTools. Add payment details yourself in the invoice; do not email bank or account details, or tax identifiers. The self-service invoice tool remains free forever."},{"date":"2026-10-03","tag":"fixed","title":"Paid-confirmation links explain missing local invoices","detail":"Opening a paid-confirmation link in a browser without that invoice now shows a lasting explanation. Open the link in the original browser, or restore a full invoice-history backup and reopen it. The smaller profile-and-client transfer does not include invoices. Confirmation remains local to your browser; it does not verify a payment or sync invoice history."},{"date":"2026-10-03","tag":"fixed","title":"Settings and consent choices stay easy to reach","detail":"The consent banner now waits while a dialog is open, keeping Settings Save accessible. On phones, the Download PDF bar also makes room for the banner so Not now stays reachable. Your saving choice and consent behavior are unchanged."},{"date":"2026-10-12","tag":"improved","title":"Every release now ships through an automated pipeline","detail":"Pull requests now build, test, and deploy automatically with Axiom's review on every change, so fixes and features land faster and safer. Thirty PRs merged in the last nine days, and the full behind-the-scenes story is here: https://monkeetools.substack.com/p/the-deploy-button-is-gone-good"}];</script>
+<meta property="og:site_name" content="MonkeeTools" />
+<meta name="robots" content="noindex,nofollow"></head>
+<body>
+  <style>
+html{scroll-padding-top:calc(var(--site-header-height,160px) + var(--site-filterbar-height,0px) + 16px)}.filterbar{top:var(--site-header-height,0px)}
+.site-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid #d9dedb;margin:0!important;padding:0!important;max-width:none!important;display:block!important}
+.site-header .sh-inner{max-width:1440px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.site-header .sh-brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#17232b;font-weight:800;font-size:17px;white-space:nowrap}.site-header .sh-brand img{width:26px;height:26px;border-radius:7px;display:block}.site-header .sh-t{color:#ba3f26}
+.site-header .sh-current{font-size:13px;color:#4a5a63;flex:1;line-height:1.3}.site-header .sh-current::before{content:' / ';color:#627078}
+.site-header .sh-nav{display:flex;align-items:center;gap:2px;flex:none!important;flex-wrap:nowrap!important;overflow:visible!important}
+.site-header .sh-nav a,.site-header .sh-nav button,.site-header summary{font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17232b;text-decoration:none;padding:12px 10px;min-height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer;white-space:nowrap;margin:0}
+.site-header .sh-nav a:hover,.site-header .sh-nav button:hover,.site-header summary:hover{background:#eef1ef}.site-header :focus-visible{outline:3px solid #173746;outline-offset:2px}
+.site-header .sh-menu{position:relative}.site-header summary{list-style:none}.site-header summary::-webkit-details-marker{display:none}.site-header summary::after{content:' ▾'}
+.site-header .sh-secondary{position:absolute;right:0;top:100%;width:240px;max-width:calc(100vw - 24px);max-height:70vh;overflow:auto;background:#fff;border:1px solid #d9dedb;border-radius:10px;padding:8px;box-shadow:0 8px 24px #17232b22;display:flex;flex-direction:column;z-index:51}.site-header .sh-secondary a,.site-header .sh-secondary button{text-align:left;white-space:normal}
+@media(max-width:700px){.site-header .sh-inner{padding:6px 12px;gap:0 8px}.site-header .sh-current{order:3;flex-basis:100%;padding:2px 0 4px}.site-header .sh-current::before{content:'Current: '}.site-header .sh-nav a,.site-header .sh-nav button,.site-header summary{padding:12px 7px}.site-header .sh-brand{font-size:15px}.site-header .sh-brand img{width:24px;height:24px}}
+@media(max-width:700px){.site-header .sh-secondary{top:calc(100% + 22px)}.site-header #settingsBtn{font-size:0;width:36px;padding:8px}.site-header #settingsBtn::after{content:"⚙";font-size:18px}}
+@media(max-width:360px){.site-header .sh-brand>span{display:none}}
+@media print{.site-header{display:none!important}}
+</style><header class="site-header"><div class="sh-inner"><a class="sh-brand" href="/" aria-label="MonkeeTools home"><img src="/logo.png" width="26" height="26" alt="MonkeeTools logo"><span>Monkee<span class="sh-t">Tools</span></span></a><span class="sh-current" aria-label="Current page">All tools</span><nav class="sh-nav" aria-label="Site"><a href="/tools/">All tools</a><a href="/feedback/">Help</a><details class="sh-menu"><summary>Menu</summary><div class="sh-secondary"><a href="/no-login-tools/">No-login toolkit</a><a href="/client-finder/">Client Finder</a><a href="/email-finder/">Email Finder</a><a href="/quote-generator/">Quote Builder</a><a href="/">Invoice Generator</a><a href="/agents/">Agents</a><a href="/feedback/">Feedback</a><a href="/roadmap/">Roadmap</a><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="https://monkeetools.substack.com">Blog</a></div></details></nav></div></header><script>
+/* Keep fragment targets clear of the responsive header and toolkit filters.
+   Header/navigation wrapping changes their height across pages and viewports. */
+(function(){
+  var root=document.documentElement;
+  var header=document.querySelector('.site-header');
+  if(!header)return;
+  var filterbar=null;
+  function updateOffsets(){
+    root.style.setProperty('--site-header-height',Math.ceil(header.getBoundingClientRect().height)+'px');
+    root.style.setProperty('--site-filterbar-height',filterbar?Math.ceil(filterbar.getBoundingClientRect().height)+'px':'0px');
+  }
+  updateOffsets();
+  var observer=typeof ResizeObserver==='function'?new ResizeObserver(updateOffsets):null;
+  if(observer)observer.observe(header);
+  window.addEventListener('resize',updateOffsets);
+  function watchFilters(){
+    filterbar=document.querySelector('.filterbar');
+    if(filterbar&&observer)observer.observe(filterbar);
+    updateOffsets();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watchFilters,{once:true});
+  else watchFilters();
+})();
+</script>
+<script>
+(function(){
+  var menu=document.querySelector('.sh-menu');if(!menu)return;
+  var trigger=menu.querySelector('summary');
+  function close(returnFocus){if(!menu.open)return;menu.open=false;if(returnFocus)trigger.focus({preventScroll:true});}
+  menu.addEventListener('keydown',function(event){if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close(true);}});
+  document.addEventListener('click',function(event){if(!menu.contains(event.target))close(false);});
+  menu.querySelector('.sh-secondary').addEventListener('click',function(event){if(event.target.closest('a,button'))close(false);});
+  window.addEventListener('resize',function(){close(menu.contains(document.activeElement));});
+})();
+</script>
+  <main class="wrap">
+    <div class="eyebrow">MonkeeTools</div>
+    <h1>Every tool between the work and the money.</h1>
+    <p class="lede">Find clients, quote work, invoice and follow up. Core documents are free; optional branding and Email Finder are paid. PDFs are created in your browser. Optional short links send the shared invoice URL to our service.</p>
+<section class="sec" aria-label="Find clients"><h2 class="sec-h">Find clients</h2><p class="sec-sub">Both Finders use our service. Shared networks share each Finder’s daily cap. Completed searches, including no-result searches, count; invalid or failed requests do not.</p><div class="grid"><a class="card" href="/client-finder/">
+          <span class="badge live">Live</span> <span class="badge free">Free</span>
+          <span class="icon" aria-hidden="true">🔍</span>
+          <h2>Client finder</h2>
+          <p>Freelancer client discovery without the ZoomInfo bill. Enter a business name, get their website, published emails, phone numbers, key people, and social profiles, all from public pages. Free · 3 lookups per day per IP · resets midnight UTC.</p>
+          <span class="go">Open the tool →</span>
+        </a><a class="card" href="/email-finder/">
+          <span class="badge live">Live</span> <span class="badge paid">$19 Brand Pack</span>
+          <span class="icon" aria-hidden="true">📧</span>
+          <h2>Email finder</h2>
+          <p>Client gone quiet on an unpaid invoice? Find a published contact email; payment authority and deliverability are not guaranteed. Only email addresses they published themselves. We never guess. $19 one-time Brand Pack · 3 lookups per day per IP · resets midnight UTC.</p>
+          <span class="go">Open the tool →</span>
+        </a></div></section>
+      <div class="customize-row">
+        <button class="customize-btn" id="customizeBtn" type="button" aria-expanded="false" aria-controls="toolPanel">Choose document tools</button>
+      </div>
+      <div class="tool-panel" id="toolPanel" hidden>
+        <p>Choose which of the six document cards to show. Finders and the toolkit remain visible. Your choices are saved on this device only.</p>
+        <div class="opts">
+          <label><input type="checkbox" data-tool="quote" checked> Quote Builder</label>
+          <label><input type="checkbox" data-tool="timesheet" checked> Timesheets</label>
+          <label><input type="checkbox" data-tool="packing-slip" checked> Packing Slips</label>
+          <label><input type="checkbox" data-tool="invoice" checked> Invoice Generator</label>
+          <label><input type="checkbox" data-tool="receipt" checked> Receipts</label>
+          <label><input type="checkbox" data-tool="credit-note" checked> Credit Notes</label>
+        </div>
+        <button class="show-all" id="showAllBtn" type="button">Show all</button>
+      </div>
+<section class="sec" aria-label="Quote work"><h2 class="sec-h">Quote work</h2><p class="sec-sub">Estimate the work and track billable time. Saved document records stay in this browser.</p><div class="grid"><a class="card" href="/quote-generator/" data-tool="quote">
+          <span class="badge free">Free · Live</span>
+          <span class="icon" aria-hidden="true">💬</span>
+          <h2>Quote Builder</h2>
+          <p>Turn estimates into polished quotes: QUO numbering, valid-until dates, live preview, quote history, and one-click PDF. No account; PDFs are created in your browser. Your business details carry over from the invoice generator, and an accepted quote can seed its matching invoice.</p>
+          <span class="go">Build a quote →</span>
+        </a><a class="card" href="/timesheets/" data-tool="timesheet">
+          <span class="badge free">Free · Live</span>
+          <span class="icon" aria-hidden="true">⏱️</span>
+          <h2>Timesheets</h2>
+          <p>The private weekly timesheet: week view with daily totals, hourly rate with automatic billable math, one click sends the week to an invoice, and one-click PDF. No account; PDFs are created in your browser.</p>
+          <span class="go">Open the tool →</span>
+        </a></div></section>
+<section class="sec" aria-label="Invoice"><h2 class="sec-h">Invoice</h2><p class="sec-sub">Free invoice editing and PDFs; optional branding is paid. Optional short links send the full invoice URL to our service.</p><div class="grid"><a class="card" href="/" data-tool="invoice">
+          <span class="badge free">Free · Live</span>
+          <img class="shot" src="/shots/screenshot-main-form.png" alt="The MonkeeTools invoice generator: clean form on the left, live preview on the right" loading="lazy">
+          <span class="icon" aria-hidden="true">🧾</span>
+          <h2>Invoice Generator</h2>
+          <p>The private invoice generator: clean, client-ready invoices with live totals, multiple currencies, tax and discount controls, and one-click PDF download. Copy a client link they can view and download from. No editor, no account. Humans type; AI agents can pre-fill it from a URL.</p>
+          <span class="go">Open the tool →</span>
+        </a><a class="card" href="/packing-slips/" data-tool="packing-slip">
+          <span class="badge free">Free · Live</span>
+          <span class="icon" aria-hidden="true">📦</span>
+          <h2>Packing Slips</h2>
+          <p>Build packing slips for every box you send: ship-to details, item quantities, tracking info, and one-click PDF. No account; PDFs are created in your browser.</p>
+          <span class="go">Open the tool →</span>
+        </a></div></section>
+<section class="sec" aria-label="Follow up / get paid"><h2 class="sec-h">Follow up / get paid</h2><p class="sec-sub">Local history, manual reminders and document records; these do not verify payment or sync across devices.</p><div class="grid"><a class="card" href="/receipts/" data-tool="receipt">
+          <span class="badge free">Free · Live</span>
+          <span class="icon" aria-hidden="true">📃</span>
+          <h2>Receipts</h2>
+          <p>Issue polished receipts in seconds: payment details, line items, and one-click PDF, generated from a paid invoice or built from scratch. No account; PDFs are created in your browser.</p>
+          <span class="go">Open the tool →</span>
+        </a><a class="card" href="/credit-notes/" data-tool="credit-note">
+          <span class="badge free">Free · Live</span>
+          <span class="icon" aria-hidden="true">🔄</span>
+          <h2>Credit Notes</h2>
+          <p>Correct a billed invoice the professional way: reference the original invoice, itemize the credit, and download a clean PDF. No account; PDFs are created in your browser.</p>
+          <span class="go">Open the tool →</span>
+        </a><div class="card">
+          <span class="badge live">Templates live</span> <span class="badge soon">Auto: proposed</span>
+          <img class="shot" src="/shots/recurring-invoices.png" alt="Recurring invoices: a monthly template with Generate and Stop buttons" loading="lazy">
+          <span class="icon" aria-hidden="true">🔁</span>
+          <h2>Recurring invoice templates</h2>
+          <p>Recurring templates are already live in the generator: save one, get nudged when the next invoice is due, generate it in one click. Open invoice history to manage templates; invoices are generated manually. Automatic invoicing is proposed.</p>
+          <a class="go" href="/#chain-recurring">Open invoice templates →</a><button class="vote-btn" type="button" data-tool="Hands-free recurring invoices">Vote for automatic invoicing →</button>
+        </div></div></section>
+<section class="sec" aria-label="More tools"><h2 class="sec-h">More tools</h2><p class="sec-sub">Browse tools beyond the document family.</p><div class="grid"><a class="card" href="/no-login-tools/">
+          <span class="badge live">Live</span>
+          <img class="shot" src="/shots/toolkit-wall.png" alt="The no-login toolkit wall: hand-verified tools with real logos" loading="lazy">
+          <span class="icon" aria-hidden="true">🧰</span>
+          <h2>No-login toolkit</h2>
+          <p>A hand-verified collection of tools that do their core job with no account: contracts, time tracking, file sharing, PDFs, scheduling, and more. Every listing checked by us against a public bar.</p>
+          <span class="go">Browse the toolkit →</span>
+        </a></div></section>
+    <section class="suggest">
+      <h2>What should we build next?</h2>
+      <p>MonkeeTools grows based on what freelancers actually ask for. Tell us the most annoying part of running your business.</p>
+      <label for="ideaText" class="fine" style="display:block;margin-bottom:6px">Describe the most annoying part of running your business:</label>
+      <textarea id="ideaText" placeholder="e.g. I waste an hour every month reconciling expenses…"></textarea>
+      <label for="ideaEmail" class="fine" style="display:block;margin-bottom:6px">Email (only if you'd like a reply)</label>
+      <input type="email" id="ideaEmail" placeholder="you@example.com" autocomplete="email" style="width:100%;border:1px solid #cdd4d1;border-radius:8px;padding:11px 12px;font:inherit;margin-bottom:12px" />
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAE3CH4CjP3gWUTGq" data-theme="light" aria-label="Human verification"></div>
+      <button class="btn" type="button" id="ideaSend">Send it</button>
+      <p class="fine" id="ideaStatus"></p>
+      <p class="fine">Suggestions may be published on our <a href="/feedback/">public feedback board</a> after review, anonymously unless you ask to be named.</p>
+    </section>
+    <section class="updates" aria-label="Recent updates">
+      <h2>Recent updates</h2>
+      <p class="sub">What shipped lately. Many of these started as feedback. <a href="/feed.xml">Subscribe via RSS</a> to hear about new tools.</p>
+      <div id="recentUpdates"></div>
+      <p class="more"><a href="/">Open the invoice generator</a> and hit “What’s new” for the full history.</p>
+    </section>
+  </main>
+  <footer><style>.fmk{display:inline-block;width:26px;height:26px;vertical-align:-7px;margin-left:8px}.fmk svg{width:100%;height:100%;display:block}@keyframes mk-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}.fmk:hover svg{animation:mk-wiggle .65s ease-in-out}@media (prefers-reduced-motion:reduce){.fmk:hover svg{animation:none!important}}.fbadges{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:14px}.fbadges img{display:block;max-height:36px;width:auto}.fbadges .fbadge-foundrlist img{width:150px;height:48px;max-height:none}.fbadges .fbadge-text{border:1px solid rgba(0,0,0,.18);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;color:#4a5a63;text-decoration:none;white-space:nowrap}.fbadge-g2{display:inline-flex;align-items:center;gap:6px;text-decoration:none}.fbadge-g2 .fg2-stars{color:#e8a13d;font-size:15px;letter-spacing:2px;line-height:1}.fbadge-g2 .fg2-score{font-size:13px;font-weight:700;color:#4a5a63;white-space:nowrap}</style><strong>Tools:</strong> <a href="/tools/">Our tools</a> · <a href="/quote-generator/">Quote</a> · <a href="/no-login-tools/">No-login toolkit</a> · <a href="/email-finder/">Email finder</a> · <a href="/client-finder/">Client finder</a> · <a href="/offline" download="monkeetools-invoice-generator.html" title="The whole tool in one file. Works without a connection.">Offline copy</a><br><strong>Help:</strong> <a href="/feedback/">Send feedback</a> · <a href="/freelancers/">For freelancers</a> · <a href="/releases/">Release notes</a> · <a href="https://monkeetools.substack.com">Blog</a> · <a href="mailto:monkeetools@proton.me">Email</a><br><strong>Company:</strong> <a href="/about/">About</a> · <a href="/design-partners/">Design partners</a> · <a href="/partners/">Partners</a> · <a href="/roadmap/">Roadmap</a> · <a href="/press/">Press</a> · <a href="/privacy/">Privacy</a><br><strong>Trades:</strong> <a href="/for-electricians/">Electricians</a> · <a href="/for-plumbers/">Plumbers</a> · <a href="/for-hvac/">HVAC</a> · <a href="/for-landscapers/">Landscapers</a> · <a href="/for-general-contractors/">General contractors</a><br><strong>Compare:</strong> <a href="/square-alternative/">Square alternative</a> · <a href="/wave-alternative/">Wave alternative</a> · <a href="/zoho-alternative/">Zoho alternative</a><br><strong>Social:</strong> <a href="https://x.com/monkeetools" target="_blank" rel="noopener" title="MonkeeTools on X">X</a> · <a href="https://www.reddit.com/user/Monkee_Tools" target="_blank" rel="noopener" title="MonkeeTools on Reddit">Reddit</a><br>No account needed. Invoice creation and PDF downloads free forever.<br /><span class="fbadges"><a href="https://www.promptfrenzy.com/directory" rel="noopener" target="_blank" title="Featured on PromptFrenzy AI Directory"><img src="https://www.promptfrenzy.com/badges/directory.svg" alt="Featured on PromptFrenzy AI Directory" width="220" height="44" loading="lazy" /></a><a class="fbadge-text" href="https://www.aisuperhub.io/" rel="noopener" target="_blank" title="AISuperHub AI tools directory">AISuperHub</a><a class="fbadge-text" href="https://viesearch.com/28ev6/monkeetools" rel="noopener" target="_blank" title="MonkeeTools on Viesearch">Viesearch</a><a class="fbadge-text" href="https://www.aitoolzdir.com" target="_blank" rel="noopener" title="AI Toolz Dir">AI Toolz Dir</a><a class="fbadge-text" href="https://trylaunch.ai/launch/monkeetools" rel="noopener" target="_blank" title="MonkeeTools on TryLaunch">TryLaunch</a><a class="fbadge-g2" href="https://www.g2.com/products/monkeetools/reviews" rel="noopener" target="_blank" title="Rated 5 out of 5 on G2"><img src="/g2-logo.png" alt="G2" width="28" height="28" loading="lazy" /><span class="fg2-stars" aria-hidden="true">★★★★★</span><span class="fg2-score">5/5</span></a><a href="https://letslaunch.today/product/monkeetools" target="_blank" rel="noopener" title="MonkeeTools on LetsLaunch"><img src="https://letslaunch.today/badge/monkeetools.svg" alt="MonkeeTools on LetsLaunch" width="250" height="54" loading="lazy" /></a><a href="https://startupfa.me/s/monkeetools?utm_source=monkeetools.pages.dev" target="_blank" rel="noopener" title="MonkeeTools featured on Startup Fame"><img src="https://startupfa.me/badge?t=classic&theme=default" alt="MonkeeTools - Featured on Startup Fame" width="171" height="54" loading="lazy" /></a><a class="fbadge-text" href="https://letslaunch.today/product/monkeetools" target="_blank" rel="noopener" title="MonkeeTools ranked #5 on LetsLaunch this week">#5 on LetsLaunch this week</a><a href="https://www.toolpilot.ai/products/monkeetools" rel="noopener" target="_blank" title="Featured on ToolPilot"><img src="/toolpilot-badge.png" alt="Featured on ToolPilot" width="171" height="38" loading="lazy" /></a><a class="fbadge-foundrlist" href="https://www.foundrlist.com/product/monkeetools?utm_source=badge&amp;utm_medium=embed" target="_blank" rel="noopener" referrerpolicy="origin"><img src="https://www.foundrlist.com/api/badge/monkeetools" alt="Featured on FoundrList" width="150" height="48" referrerpolicy="origin" /></a></span><span class="fmk" title="Monkee approves this footer"><svg viewBox="0 0 120 120" role="img" aria-label="Monkee the monkey"><circle cx="20" cy="46" r="17" fill="#ba3f26"/><circle cx="20" cy="46" r="8" fill="#f7e8d8"/><circle cx="100" cy="46" r="17" fill="#ba3f26"/><circle cx="100" cy="46" r="8" fill="#f7e8d8"/><circle cx="60" cy="64" r="42" fill="#e85d3f"/><path d="M52 24 q4 -8 8 0 q4 -8 8 0" stroke="#ba3f26" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="74" rx="30" ry="25" fill="#f7e8d8"/><circle cx="48" cy="64" r="5.5" fill="#17232b"/><circle cx="72" cy="64" r="5.5" fill="#17232b"/><circle cx="50" cy="62" r="1.8" fill="#fff"/><circle cx="74" cy="62" r="1.8" fill="#fff"/><path d="M48 88 q12 10 24 0" stroke="#17232b" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg></span></footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    /* Sealed in the browser before sending (see seal.js, details at /privacy/). Our Worker only ever stores ciphertext. */
+    /* Feedback, replies, votes, and enabled usage-event payloads are encrypted
+   in the browser with MonkeeTools' RSA public key (RSA-OAEP-SHA-256 + AES-GCM-256).
+   Short-link URLs and human-verification tokens are separate. This browser
+   helper does not establish server retention, access, or private-key custody. */
+const MT_PUBKEY_B64="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0QzRSFF7DsXgiAP2xnO68rexMzUc2a1dhkJO+ySxrR03G6/0nE07vX9SzkuzsY05ZoRa+yD9VPa4FuJqFLbwTlbL9ii0/pDual11DseCTpx5j5yuvxTT46zS84wLQh3+lOzAhlTMGjtvs/z4gG8ZnQ0tNLTEMQX6lcDw+f/brSFk4asLweRscNZ3e+ocsy2bAy+p9GwOp2EQwkaDj0MHAWx1o9q3Y30DTB6EsygSc8v/lbRid+nQ1mgQM7u9wEZ3QbDTSz0jjUPyC2bKQh9rOZJSt3nSCPP9ur3SAl1POmINviUENfoLjPZzwXXfHVHywt0P3tGbLJzEvcfAzaUDrQIDAQAB";
+function mtB64encode(buf){const b=new Uint8Array(buf);let s="";for(let i=0;i<b.length;i+=32768){s+=String.fromCharCode.apply(null,b.subarray(i,i+32768))}return btoa(s)}
+async function sealPayload(obj){
+  const raw=Uint8Array.from(atob(MT_PUBKEY_B64),c=>c.charCodeAt(0)).buffer;
+  const pub=await crypto.subtle.importKey("spki",raw,{name:"RSA-OAEP",hash:"SHA-256"},false,["encrypt"]);
+  const aes=await crypto.subtle.generateKey({name:"AES-GCM",length:256},true,["encrypt"]);
+  const encKey=await crypto.subtle.encrypt({name:"RSA-OAEP"},pub,await crypto.subtle.exportKey("raw",aes));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const data=await crypto.subtle.encrypt({name:"AES-GCM",iv},aes,new TextEncoder().encode(JSON.stringify(obj)));
+  return JSON.stringify({v:1,key:mtB64encode(encKey),iv:mtB64encode(iv),data:mtB64encode(data)});
+}
+
+    const FEEDBACK_PROTECTED = 'https://monkeetools-analytics.monkeetools.workers.dev/feedback-protected';
+    /* Human check via Cloudflare Turnstile (spam guard). Returns the token string,
+       or '' when the check is not complete; shows an accessible status otherwise. */
+    function getHumanToken(st) {
+      if (typeof turnstile === 'undefined') { st.textContent = 'The human check did not load. Check your connection and try again.'; return ''; }
+      var token = '';
+      try { token = turnstile.getResponse() || ''; } catch (e) { token = ''; }
+      if (!token) { st.textContent = 'Please complete the human check above before sending.'; }
+      return token;
+    }
+    function resetHuman() { try { turnstile.reset(); } catch (e) {} }
+    /* Sealed envelope + Turnstile token in one server-side-verified request. */
+    async function sendProtected(token, envelopeJson) {
+      var envelope;
+      try { envelope = JSON.parse(envelopeJson); } catch (e) { envelope = envelopeJson; }
+      var r = await fetch(FEEDBACK_PROTECTED, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token, envelope: envelope })
+      });
+      var d = null;
+      try { d = await r.json(); } catch (e) {}
+      return !!(d && d.ok);
+    }
+    document.getElementById('ideaSend').addEventListener('click', async () => {
+      const msg = document.getElementById('ideaText').value.trim();
+      const st = document.getElementById('ideaStatus');
+      const btn = document.getElementById('ideaSend');
+      if (!msg) { st.textContent = 'Write a little something first.'; return; }
+      const email = document.getElementById('ideaEmail').value.trim();
+      if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { st.textContent = 'That email doesn’t look right. Fix it or leave it blank.'; return; }
+      btn.disabled = true; st.textContent = 'Sending…';
+      try {
+        if (!FEEDBACK_PROTECTED) { st.textContent = 'Suggestions are disabled on this preview.'; btn.disabled = false; return; }
+        var token = getHumanToken(st);
+        if (!token) { btn.disabled = false; return; }
+        const payload = await sealPayload({ message: msg, page: location.pathname, t: Date.now(), replyTo: email || undefined });
+        var sent = await sendProtected(token, payload);
+        resetHuman();
+        if (!sent) { st.textContent = 'The human check did not pass, or sending failed. Please try again.'; btn.disabled = false; return; }
+        st.textContent = email ? 'Thanks, noted. We’ll reply to ' + email + '.' : 'Thanks, noted. We build what people ask for.';
+        document.getElementById('ideaText').value = '';
+      } catch (e) { resetHuman(); st.textContent = 'Could not send just now. Your browser could not encrypt it, so email monkeetools@proton.me instead.'; }
+      btn.disabled = false;
+    });
+    /* One-click votes for planned tools. Same sealed pipeline as the suggestion box. */
+    document.querySelectorAll('.vote-btn').forEach(function(btn){
+      btn.addEventListener('click', async function(){
+        var tool = btn.getAttribute('data-tool');
+        btn.disabled = true; btn.textContent = 'Counting…';
+        try {
+          var payload = await sealPayload({ message: 'VOTE: ' + tool, page: location.pathname, t: Date.now() });
+          await fetch('https://monkeetools-analytics.monkeetools.workers.dev/feedback', {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload
+          });
+          btn.textContent = '✓ Vote counted';
+        } catch (e) {
+          btn.disabled = false; btn.textContent = 'I want this →';
+          var st = document.getElementById('ideaStatus');
+          if (st) st.textContent = 'Could not count your vote just now. Tell us in the suggestion box below instead.';
+        }
+      });
+    });
+    /* Recent updates: entries ship in window.MONKEE_CHANGELOG, inlined at deploy time */    (function(){
+      var esc=function(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+      var labels={new:'New',improved:'Improved',fixed:'Fixed'};
+      var el=document.getElementById('recentUpdates'); if(!el) return;
+      var entries=(window.MONKEE_CHANGELOG||[]).slice(-3).reverse();
+      el.innerHTML=entries.map(function(e){
+        return '<article class="upd"><span class="cl-tag cl-'+esc(e.tag)+'">'+esc(labels[e.tag]||e.tag)+'</span><div><h3>'+esc(e.title)+'</h3><p>'+esc(e.detail)+'</p></div></article>';
+      }).join('')||'<p class="fine">Nothing here yet.</p>';
+    })();
+  </script>
+  <script>
+    /* Choose your tools: hide the document cards you don't use. Saved on this device only. */
+    (function(){
+      var KEY = 'mt_hidden_tools_v1';
+      var SLUGS = ['quote','timesheet','packing-slip','invoice','receipt','credit-note'];
+      function read(){
+        try {
+          var v = JSON.parse(localStorage.getItem(KEY));
+          return Array.isArray(v) ? v.filter(function(x){ return SLUGS.indexOf(x) > -1; }) : [];
+        } catch (e) { return []; }
+      }
+      function save(hidden){
+        try { localStorage.setItem(KEY, JSON.stringify(hidden)); } catch (e) {}
+      }
+      function apply(hidden){
+        SLUGS.forEach(function(s){
+          var card = document.querySelector('.grid [data-tool="' + s + '"]');
+          if (card) card.hidden = hidden.indexOf(s) > -1;
+        });
+        document.querySelectorAll('#toolPanel input[type="checkbox"]').forEach(function(cb){
+          cb.checked = hidden.indexOf(cb.getAttribute('data-tool')) < 0;
+        });
+      }
+      var panel = document.getElementById('toolPanel');
+      var btn = document.getElementById('customizeBtn');
+      if (!panel || !btn) return;
+      apply(read());
+      btn.addEventListener('click', function(){
+        var open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      panel.addEventListener('change', function(e){
+        var t = e.target;
+        if (!t || t.type !== 'checkbox') return;
+        var s = t.getAttribute('data-tool');
+        var hidden = read();
+        if (t.checked) {
+          hidden = hidden.filter(function(x){ return x !== s; });
+        } else if (hidden.indexOf(s) < 0) {
+          hidden.push(s);
+        }
+        save(hidden);
+        apply(hidden);
+      });
+      document.getElementById('showAllBtn').addEventListener('click', function(){
+        save([]);
+        apply([]);
+      });
+    })();
+  </script>
+<script src="/chat.js" defer></script>
+<div style="position:fixed;bottom:0;right:0;z-index:99999;background:#ffc;color:#111;padding:5px">SANITIZED OFFLINE PREVIEW</div></body>
+</html>

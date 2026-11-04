@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://monkeetools-analytics.monkeetools.workers.dev; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta charset="utf-8" />
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy, auditable: MonkeeTools</title>
+<meta name="description" content="How MonkeeTools handles local invoice records, optional short links, feedback and usage events." />
+<meta property="og:title" content="MonkeeTools privacy, auditable" />
+<meta property="og:description" content="Local invoice records, optional sharing, feedback and usage events." />
+<meta property="og:image" content="https://monkeetools.pages.dev/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MonkeeTools privacy, auditable" />
+<meta name="twitter:description" content="Local invoice records, optional sharing, feedback and usage events." />
+<meta name="twitter:image" content="https://monkeetools.pages.dev/og-image.png" />
+
+<meta property="og:url" content="https://monkeetools.pages.dev/privacy/" />
+<style>
+  :root{--ink:#17232b;--muted:#5b6663;--line:#e7e2da;--bg:#f6f4ef;--card:#ffffff;--accent:#e85d3f;--navy:#1d2b36}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{font-weight:800;font-size:19px;color:var(--ink);text-decoration:none}.brand{display:inline-flex;align-items:center;gap:8px}.brand .brandlogo{width:22px;height:22px;border-radius:6px}
+  .brand span{color:var(--accent)}
+  nav a{font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;margin-left:16px}
+  nav a:hover{color:var(--ink)}
+  h1{font-size:30px;letter-spacing:-.02em;margin:14px 0 8px}
+  .lede{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 24px}
+  h2{font-size:19px;margin:30px 0 10px;letter-spacing:-.01em}
+  p,li{font-size:14.5px;line-height:1.7}
+  ul{padding-left:20px}
+  code{background:#efece5;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+  pre{background:var(--navy);color:#eef2f1;border-radius:10px;padding:16px;overflow-x:auto;font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0}
+  .card h2{margin-top:0}
+  .ok{color:#1d7a3a;font-weight:700}
+  footer{padding:26px 0 46px;text-align:center;font-size:13px;color:var(--muted)}
+  footer a{color:var(--ink);font-weight:700}
+
+  @media(max-width:620px){header.top{flex-wrap:wrap;row-gap:8px}header.top nav{flex:1 1 100%}header.top nav a{white-space:nowrap;margin:0 14px 0 0}}
+</style>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MonkeeTools" />
+<meta name="robots" content="noindex,nofollow"></head>
+<body>
+<div class="wrap">
+  <style>
+html{scroll-padding-top:calc(var(--site-header-height,160px) + var(--site-filterbar-height,0px) + 16px)}.filterbar{top:var(--site-header-height,0px)}
+.site-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid #d9dedb;margin:0!important;padding:0!important;max-width:none!important;display:block!important}
+.site-header .sh-inner{max-width:1440px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.site-header .sh-brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#17232b;font-weight:800;font-size:17px;white-space:nowrap}.site-header .sh-brand img{width:26px;height:26px;border-radius:7px;display:block}.site-header .sh-t{color:#ba3f26}
+.site-header .sh-current{font-size:13px;color:#4a5a63;flex:1;line-height:1.3}.site-header .sh-current::before{content:' / ';color:#627078}
+.site-header .sh-nav{display:flex;align-items:center;gap:2px;flex:none!important;flex-wrap:nowrap!important;overflow:visible!important}
+.site-header .sh-nav a,.site-header .sh-nav button,.site-header summary{font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17232b;text-decoration:none;padding:12px 10px;min-height:40px;border:0;border-radius:8px;background:transparent;cursor:pointer;white-space:nowrap;margin:0}
+.site-header .sh-nav a:hover,.site-header .sh-nav button:hover,.site-header summary:hover{background:#eef1ef}.site-header :focus-visible{outline:3px solid #173746;outline-offset:2px}
+.site-header .sh-menu{position:relative}.site-header summary{list-style:none}.site-header summary::-webkit-details-marker{display:none}.site-header summary::after{content:' ▾'}
+.site-header .sh-secondary{position:absolute;right:0;top:100%;width:240px;max-width:calc(100vw - 24px);max-height:70vh;overflow:auto;background:#fff;border:1px solid #d9dedb;border-radius:10px;padding:8px;box-shadow:0 8px 24px #17232b22;display:flex;flex-direction:column;z-index:51}.site-header .sh-secondary a,.site-header .sh-secondary button{text-align:left;white-space:normal}
+@media(max-width:700px){.site-header .sh-inner{padding:6px 12px;gap:0 8px}.site-header .sh-current{order:3;flex-basis:100%;padding:2px 0 4px}.site-header .sh-current::before{content:'Current: '}.site-header .sh-nav a,.site-header .sh-nav button,.site-header summary{padding:12px 7px}.site-header .sh-brand{font-size:15px}.site-header .sh-brand img{width:24px;height:24px}}
+@media(max-width:700px){.site-header .sh-secondary{top:calc(100% + 22px)}.site-header #settingsBtn{font-size:0;width:36px;padding:8px}.site-header #settingsBtn::after{content:"⚙";font-size:18px}}
+@media(max-width:360px){.site-header .sh-brand>span{display:none}}
+@media print{.site-header{display:none!important}}
+</style><header class="site-header"><div class="sh-inner"><a class="sh-brand" href="/" aria-label="MonkeeTools home"><img src="/logo.png" width="26" height="26" alt="MonkeeTools logo"><span>Monkee<span class="sh-t">Tools</span></span></a><span class="sh-current" aria-label="Current page">Privacy</span><nav class="sh-nav" aria-label="Site"><a href="/tools/">All tools</a><a href="/feedback/">Help</a><details class="sh-menu"><summary>Menu</summary><div class="sh-secondary"><a href="/no-login-tools/">No-login toolkit</a><a href="/client-finder/">Client Finder</a><a href="/email-finder/">Email Finder</a><a href="/quote-generator/">Quote Builder</a><a href="/">Invoice Generator</a><a href="/agents/">Agents</a><a href="/feedback/">Feedback</a><a href="/roadmap/">Roadmap</a><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="https://monkeetools.substack.com">Blog</a></div></details></nav></div></header><script>
+/* Keep fragment targets clear of the responsive header and toolkit filters.
+   Header/navigation wrapping changes their height across pages and viewports. */
+(function(){
+  var root=document.documentElement;
+  var header=document.querySelector('.site-header');
+  if(!header)return;
+  var filterbar=null;
+  function updateOffsets(){
+    root.style.setProperty('--site-header-height',Math.ceil(header.getBoundingClientRect().height)+'px');
+    root.style.setProperty('--site-filterbar-height',filterbar?Math.ceil(filterbar.getBoundingClientRect().height)+'px':'0px');
+  }
+  updateOffsets();
+  var observer=typeof ResizeObserver==='function'?new ResizeObserver(updateOffsets):null;
+  if(observer)observer.observe(header);
+  window.addEventListener('resize',updateOffsets);
+  function watchFilters(){
+    filterbar=document.querySelector('.filterbar');
+    if(filterbar&&observer)observer.observe(filterbar);
+    updateOffsets();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watchFilters,{once:true});
+  else watchFilters();
+})();
+</script>
+<script>
+(function(){
+  var menu=document.querySelector('.sh-menu');if(!menu)return;
+  var trigger=menu.querySelector('summary');
+  function close(returnFocus){if(!menu.open)return;menu.open=false;if(returnFocus)trigger.focus({preventScroll:true});}
+  menu.addEventListener('keydown',function(event){if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close(true);}});
+  document.addEventListener('click',function(event){if(!menu.contains(event.target))close(false);});
+  menu.querySelector('.sh-secondary').addEventListener('click',function(event){if(event.target.closest('a,button'))close(false);});
+  window.addEventListener('resize',function(){close(menu.contains(document.activeElement));});
+})();
+</script>
+
+  <h1>Privacy and sharing</h1>
+  <p class="lede">This page explains local invoice storage, optional sharing, feedback and usage events. You can inspect browser behavior in developer tools; server storage and retention also depend on the service described below.</p>
+
+  <div class="card">
+    <h2>The short version</h2>
+    <ul>
+      <li><span class="ok">✓</span> Create invoices and generate PDFs in your browser without an account. Remembered business details, clients and invoice history are stored in this browser.</li>
+      <li><span class="ok">✓</span> Full client links contain invoice data after <code>#</code>. Opening a full link does not send that fragment in the page request. If you choose shortening, the app separately sends the complete link, including its fragment, to the short-link service.</li>
+      <li><span class="ok">✓</span> Feedback, replies, votes and enabled usage-event payloads are encrypted in the browser before submission. Short-link requests and human-verification signals are separate and are not covered by that encryption claim.</li>
+      <li><span class="ok">✓</span> Pages may load external directory-badge images. Feedback and tool-suggestion forms use Cloudflare Turnstile, which may process browser or device signals under Cloudflare’s privacy policy.</li>
+    </ul>
+  </div>
+
+  <h2>What is stored on this device</h2>
+  <p>The generator can remember your business profile, clients and invoice history in this browser’s localStorage. These records do not automatically sync across devices. Data included in a link leaves this browser when you share it; choosing a short link also sends the full invoice link to the short-link service.</p>
+  <ul>
+    <li><strong>Your choice:</strong> “Remember on this device” controls saving your business profile, clients and invoice history. You can use the generator without saving those records. Other local preferences and random usage identifiers are separate; turning off remembering is not a promise that the browser stores nothing.</li>
+    <li><strong>Records:</strong> your business profile, payment details, saved clients, invoice history and defaults can be stored in this browser. Anyone with access to the browser may be able to read them.</li>
+    <li><strong>Clearing and copies:</strong> browser site-data controls can clear local records. Clearing local records does not retract files or links you already shared, or delete copies held by a recipient or the short-link service.</li>
+    <li><strong>Backups:</strong> downloaded backup and CSV files are separate copies. Store and share them carefully.</li>
+  </ul>
+
+  <h2>Invoice editing and sharing</h2>
+  <ul>
+    <li>Invoice editing and PDF generation run in your browser. The PDF does not need a server to render it.</li>
+    <li>A full client link carries the invoice in its fragment. Anyone with that link can open it, and the email or messaging service you use receives the link you send.</li>
+    <li>A short link requires the complete invoice link to be sent to the short-link service. Compression or encoding makes a link smaller; it does not keep its contents secret.</li>
+  </ul>
+
+  <h2>Network activity</h2>
+  <p>The site loads its pages and assets. Depending on the feature and deployment, it can also make these requests:</p>
+  <ul>
+    <li><strong>Feedback, replies and votes:</strong> when enabled, submission contents are encrypted in the browser. Protected forms send a human-verification token alongside the encrypted envelope. The token is not part of the encrypted message.</li>
+    <li><strong>Usage events:</strong> when enabled, event payloads are encrypted in the browser. They include event names, timestamps and random session or installation identifiers; a page path or referral or team marker may also be included. These identifiers can link activity from the same browser.</li>
+    <li><strong>Short client links:</strong> choosing the one-time shortening action, or using Copy client link, Email client or Text client with the shortening setting on, sends the full invoice-bearing URL to the short-link service. Cancelling Text or entering an invalid number stops before shortening.</li>
+    <li><strong>Directory badges:</strong> pages with external badges may load images from PromptFrenzy, LetsLaunch and Startup Fame. Those providers receive the image requests.</li>
+    <li><strong>Human verification:</strong> feedback and tool-suggestion forms use Cloudflare Turnstile, which may process browser or device signals under Cloudflare’s privacy policy.</li>
+  </ul>
+  <p>Your browser also contacts external services when you follow their links or open your email, messaging or payment app. The Network tab shows requests made by this page; requests made by another app must be assessed separately.</p>
+
+  <h2 id="finder-services">Finder services</h2>
+  <p>The Email Finder and Client Finder are service-powered: each lookup sends a request to our service to run the search.</p>
+  <ul>
+    <li><strong>Data:</strong> the search terms you enter (name, business, website). Email Finder also sends your Brand Pack license key with each lookup so the service can verify access.</li>
+    <li><strong>Transient cache:</strong> discovery queries and candidate page URLs are held in Worker memory and reused for 10 minutes. Ten minutes limits reuse, not deletion: stale entries can remain until replaced, evicted when the cache exceeds 200 entries, or the Worker instance ends. This cache is not written to a database by this code.</li>
+    <li><strong>Quota records:</strong> each Finder allows 3 lookups per day per IP address, resetting at midnight UTC. People sharing a network share that limit. The server stores an IP-based daily key and count, without search terms, with two-day expiry metadata. KV fallback applies a two-day expiry; D1 reads do not enforce expiry, and automatic D1 cleanup has not been verified. This is not a two-day deletion guarantee.</li>
+    <li><strong>Usage totals:</strong> separate daily counters record lookups, hits and misses with 90-day expiry metadata. The Finder code does not write individual search terms to these counters. These totals are distinct from the IP-based quota records; production platform logs and automatic D1 cleanup have not been independently verified.</li>
+    <li><strong>Discovery providers:</strong> when discovery is needed, the service sends a query to DuckDuckGo Lite; a provided website or reusable cache entry can bypass that request. It fetches candidate websites directly and uses Cloudflare DNS to check email domains. These providers receive the requests required for those steps under their own policies.</li>
+    <li><strong>Human verification:</strong> both Finders use Cloudflare Turnstile, which may process browser or device signals under Cloudflare's privacy policy.</li>
+  </ul>
+
+  <h2 id="short-client-links">Short client links</h2>
+  <p>Short links use a Cloudflare-hosted service. Creating one sends the full invoice URL, including its fragment, to that service so the short link can redirect to it.</p>
+  <ul>
+    <li><strong>When:</strong> the one-time “Shorten and copy this link” action requests a short link even when the Settings option is off. “Use short links for Copy, Email and Text” applies to Copy client link, Email client and Text client. Changing it takes effect for the next action.</li>
+    <li><strong>Data:</strong> the URL contains the invoice details included in the full link. The short-link request is not encrypted with the feedback-sealing key. Treat the service as able to read those details.</li>
+    <li><strong>Access:</strong> anyone with either the full or short link can open the invoice. Links are not recipient-restricted or password-protected. Share them only through channels you trust.</li>
+    <li><strong>Control:</strong> turning shortening off stops future automatic shortening. Do not assume it revokes an existing link, gives it an expiry date or removes copies already shared.</li>
+    <li><strong>Retention and deletion:</strong> the implementation stores the full URL in D1 with a creation time and click count. It defines no expiry or user-facing deletion/revocation endpoint. We have not verified a separate operational cleanup period. Treat an existing short link as persistent; clearing local records does not delete it.</li>
+  </ul>
+
+  <h2>How the sealing works</h2>
+  <p>Feedback, reply and vote contents, and enabled usage-event payloads, use the browser encryption shown below. This does not apply to short-link URLs or the separate Turnstile token.</p>
+  <pre>{
+  "v": 1,
+  "key": "&lt;RSA-OAEP-SHA-256 sealed AES key&gt;",
+  "iv":  "&lt;random 12-byte IV&gt;",
+  "data": "&lt;AES-GCM-256 sealed payload&gt;"
+}</pre>
+  <ul>
+    <li>A fresh 256-bit AES-GCM key is generated per submission; the payload is sealed with it.</li>
+    <li>That AES key is sealed with an RSA public key using OAEP and SHA-256.</li>
+    <li>The submission envelope contains an encrypted payload and an encrypted AES key. This browser code demonstrates the encryption step; it does not establish who can access the server or private key, or how long server records are retained.</li>
+  </ul>
+  <p>Our RSA public key fingerprint (SHA-256 of the SPKI):<br /><code>bc91:64b5:27d2:7b4d:a5a0:5d52:63cb:acde:cd2a:a14d:874b:971e:ebbe:4781:3b20:530a</code></p>
+
+  <h2>Verify it yourself</h2>
+  <p>Use synthetic invoice details when testing. The following checks describe the intended behavior; a failed check should be reported.</p>
+  <ul>
+    <li>With “Use short links for Copy, Email and Text” off, use each action and inspect Network for <code>/shorten</code> requests: none should occur.</li>
+    <li>Turn the setting on without downloading another PDF, then repeat each action. Each should make one shortening POST. Its JSON body contains the full client URL, including the fragment. If the service fails, the action should use the full link and report the fallback.</li>
+    <li>With shortening on, cancel the Text prompt or enter an invalid number. Neither should make a shortening request. The separate one-time shortening button should make a request even when the default is off.</li>
+    <li>Open a full invoice link. Its fragment is absent from the page’s HTTP request, but the page can read it. This does not prevent script from sending it in a separate request.</li>
+    <li>On a configured test form, inspect the feedback request: message contents should be inside the ciphertext envelope and the verification token outside it. A preview with no endpoint or site key cannot demonstrate end-to-end delivery.</li>
+  </ul>
+
+  <h2>Site security</h2>
+  <ul>
+    <li>Inspect the Content Security Policy in page source and HTTP response headers in Network. A meta-tag policy does not provide every protection available through response headers.</li>
+    <li>Browser storage can contain invoice records and preferences. Anyone with access to this browser may be able to read them. An absence of cookies would not remove that risk.</li>
+    <li>External resources include Turnstile on forms and directory-badge images where displayed. Review those providers’ privacy terms when using the affected features.</li>
+    <li>Local PDF generation reduces the need to send invoice data to a server. Optional shortening is an exception: the short-link service receives the invoice-bearing URL and needs its own access controls, retention policy and security review.</li>
+  </ul>
+
+  <h2>What we collect, and why</h2>
+  <ul>
+    <li><strong>Feedback:</strong> submission contents are encrypted in your browser for delivery to our team. We review feedback before publishing it on the <a href="/feedback/">feedback board</a>, anonymously unless you ask to be named. An optional reply email is included in the encrypted submission and is not displayed on the board.</li>
+    <li><strong>Usage events:</strong> event names and random browser identifiers help measure visits, downloads and repeat use. They are not direct identifiers such as a name or email, but can connect activity from the same browser.</li>
+    <li><strong>Short links:</strong> the service receives the full invoice link to create and resolve the redirect. See <a href="#short-client-links">Short client links</a> for the data and sharing implications.</li>
+  </ul>
+
+  <h2>Optional Meta AI job-note suggestions</h2>
+  <p>File reading and reconciliation are separate requests, each requiring consent. You check and correct a transcription against the original before it can become invoice evidence. Evidence checks validate that confirmed text, rather than independently verifying the original image or audio. Source files and transcripts remain in memory in this tab; this feature does not upload files to a persistent file-storage API. Prepared files are limited to 4 MB, PDFs to three unencrypted pages and audio to 60 seconds.</p>
+  <p>MonkeeTools can offer Meta AI suggestions when its operator enables the server connection. Local parsing remains the default. Choosing the Meta step and checking its consent box sends the selected photo, PDF or audio clip, or the confirmed source text in that panel, through the MonkeeTools server to Meta Model API (Muse Spark 1.3). Saved invoices, client history, payment details and other browser storage are not included in that request. Meta's API data terms apply to files and text sent to Meta.</p>
+  <p>The server holds the application key in a protected environment or encrypted Worker secret, never in browser code. This feature does not persist submitted notes or model responses. The hosted feature requires a Cloudflare Turnstile human check after you choose consent. Its device and verification signals are separate from your notes; the token is validated on the server before a Meta request. There is no three-use product lock. Each completion is bounded in size and time and has no automatic retry. Source checks and your review are required before a proposal can change the unsaved invoice. This step does not save, issue, send or collect payment for an invoice. A separate local verification harness limits its own attempts; that is not a product quota or an account-wide billing limit.</p>
+
+  <h2>History, honestly</h2>
+  <p>Before 2026-09-12, submissions were sent as plaintext to a token-guarded inbox. That relied on the token staying secret, which is a weak guarantee once the token ships in public page source. So we moved to browser-sealed encryption and rotated every endpoint. Current sharing behavior includes optional server-created short links. See the sections above for what is sent and stored.</p>
+
+  <footer><style>.fmk{display:inline-block;width:26px;height:26px;vertical-align:-7px;margin-left:8px}.fmk svg{width:100%;height:100%;display:block}@keyframes mk-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}.fmk:hover svg{animation:mk-wiggle .65s ease-in-out}@media (prefers-reduced-motion:reduce){.fmk:hover svg{animation:none!important}}.fbadges{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:14px}.fbadges img{display:block;max-height:36px;width:auto}.fbadges .fbadge-foundrlist img{width:150px;height:48px;max-height:none}.fbadges .fbadge-text{border:1px solid rgba(0,0,0,.18);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;color:#4a5a63;text-decoration:none;white-space:nowrap}.fbadge-g2{display:inline-flex;align-items:center;gap:6px;text-decoration:none}.fbadge-g2 .fg2-stars{color:#e8a13d;font-size:15px;letter-spacing:2px;line-height:1}.fbadge-g2 .fg2-score{font-size:13px;font-weight:700;color:#4a5a63;white-space:nowrap}</style><strong>Tools:</strong> <a href="/tools/">Our tools</a> · <a href="/quote-generator/">Quote</a> · <a href="/no-login-tools/">No-login toolkit</a> · <a href="/email-finder/">Email finder</a> · <a href="/client-finder/">Client finder</a> · <a href="/offline" download="monkeetools-invoice-generator.html" title="The whole tool in one file. Works without a connection.">Offline copy</a><br><strong>Help:</strong> <a href="/feedback/">Send feedback</a> · <a href="/freelancers/">For freelancers</a> · <a href="/releases/">Release notes</a> · <a href="https://monkeetools.substack.com">Blog</a> · <a href="mailto:monkeetools@proton.me">Email</a><br><strong>Company:</strong> <a href="/about/">About</a> · <a href="/design-partners/">Design partners</a> · <a href="/partners/">Partners</a> · <a href="/roadmap/">Roadmap</a> · <a href="/press/">Press</a> · <a href="/privacy/">Privacy</a><br><strong>Trades:</strong> <a href="/for-electricians/">Electricians</a> · <a href="/for-plumbers/">Plumbers</a> · <a href="/for-hvac/">HVAC</a> · <a href="/for-landscapers/">Landscapers</a> · <a href="/for-general-contractors/">General contractors</a><br><strong>Compare:</strong> <a href="/square-alternative/">Square alternative</a> · <a href="/wave-alternative/">Wave alternative</a> · <a href="/zoho-alternative/">Zoho alternative</a><br><strong>Social:</strong> <a href="https://x.com/monkeetools" target="_blank" rel="noopener" title="MonkeeTools on X">X</a> · <a href="https://www.reddit.com/user/Monkee_Tools" target="_blank" rel="noopener" title="MonkeeTools on Reddit">Reddit</a><br>No account needed. Invoice creation and PDF downloads free forever.<br /><span class="fbadges"><a href="https://www.promptfrenzy.com/directory" rel="noopener" target="_blank" title="Featured on PromptFrenzy AI Directory"><img src="https://www.promptfrenzy.com/badges/directory.svg" alt="Featured on PromptFrenzy AI Directory" width="220" height="44" loading="lazy" /></a><a class="fbadge-text" href="https://www.aisuperhub.io/" rel="noopener" target="_blank" title="AISuperHub AI tools directory">AISuperHub</a><a class="fbadge-text" href="https://viesearch.com/28ev6/monkeetools" rel="noopener" target="_blank" title="MonkeeTools on Viesearch">Viesearch</a><a class="fbadge-text" href="https://www.aitoolzdir.com" target="_blank" rel="noopener" title="AI Toolz Dir">AI Toolz Dir</a><a class="fbadge-text" href="https://trylaunch.ai/launch/monkeetools" rel="noopener" target="_blank" title="MonkeeTools on TryLaunch">TryLaunch</a><a class="fbadge-g2" href="https://www.g2.com/products/monkeetools/reviews" rel="noopener" target="_blank" title="Rated 5 out of 5 on G2"><img src="/g2-logo.png" alt="G2" width="28" height="28" loading="lazy" /><span class="fg2-stars" aria-hidden="true">★★★★★</span><span class="fg2-score">5/5</span></a><a href="https://letslaunch.today/product/monkeetools" target="_blank" rel="noopener" title="MonkeeTools on LetsLaunch"><img src="https://letslaunch.today/badge/monkeetools.svg" alt="MonkeeTools on LetsLaunch" width="250" height="54" loading="lazy" /></a><a href="https://startupfa.me/s/monkeetools?utm_source=monkeetools.pages.dev" target="_blank" rel="noopener" title="MonkeeTools featured on Startup Fame"><img src="https://startupfa.me/badge?t=classic&theme=default" alt="MonkeeTools - Featured on Startup Fame" width="171" height="54" loading="lazy" /></a><a class="fbadge-text" href="https://letslaunch.today/product/monkeetools" target="_blank" rel="noopener" title="MonkeeTools ranked #5 on LetsLaunch this week">#5 on LetsLaunch this week</a><a href="https://www.toolpilot.ai/products/monkeetools" rel="noopener" target="_blank" title="Featured on ToolPilot"><img src="/toolpilot-badge.png" alt="Featured on ToolPilot" width="171" height="38" loading="lazy" /></a><a class="fbadge-foundrlist" href="https://www.foundrlist.com/product/monkeetools?utm_source=badge&amp;utm_medium=embed" target="_blank" rel="noopener" referrerpolicy="origin"><img src="https://www.foundrlist.com/api/badge/monkeetools" alt="Featured on FoundrList" width="150" height="48" referrerpolicy="origin" /></a></span><span class="fmk" title="Monkee approves this footer"><svg viewBox="0 0 120 120" role="img" aria-label="Monkee the monkey"><circle cx="20" cy="46" r="17" fill="#ba3f26"/><circle cx="20" cy="46" r="8" fill="#f7e8d8"/><circle cx="100" cy="46" r="17" fill="#ba3f26"/><circle cx="100" cy="46" r="8" fill="#f7e8d8"/><circle cx="60" cy="64" r="42" fill="#e85d3f"/><path d="M52 24 q4 -8 8 0 q4 -8 8 0" stroke="#ba3f26" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="74" rx="30" ry="25" fill="#f7e8d8"/><circle cx="48" cy="64" r="5.5" fill="#17232b"/><circle cx="72" cy="64" r="5.5" fill="#17232b"/><circle cx="50" cy="62" r="1.8" fill="#fff"/><circle cx="74" cy="62" r="1.8" fill="#fff"/><path d="M48 88 q12 10 24 0" stroke="#17232b" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg></span></footer>
+</div>
+<script src="/chat.js" defer></script>
+
+
+<div style="position:fixed;bottom:0;right:0;z-index:99999;background:#ffc;color:#111;padding:5px">SANITIZED OFFLINE PREVIEW</div></body>
+</html>

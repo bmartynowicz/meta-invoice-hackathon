@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' __ANALYTICS_ORIGIN__; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta charset="utf-8" />
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy, auditable: MonkeeTools</title>
+<meta name="description" content="How MonkeeTools handles local invoice records, optional short links, feedback and usage events." />
+<meta property="og:title" content="MonkeeTools privacy, auditable" />
+<meta property="og:description" content="Local invoice records, optional sharing, feedback and usage events." />
+<meta property="og:image" content="https://monkeetools.pages.dev/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MonkeeTools privacy, auditable" />
+<meta name="twitter:description" content="Local invoice records, optional sharing, feedback and usage events." />
+<meta name="twitter:image" content="https://monkeetools.pages.dev/og-image.png" />
+
+<meta property="og:url" content="https://monkeetools.pages.dev/privacy/" />
+<style>
+  :root{--ink:#17232b;--muted:#5b6663;--line:#e7e2da;--bg:#f6f4ef;--card:#ffffff;--accent:#e85d3f;--navy:#1d2b36}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{font-weight:800;font-size:19px;color:var(--ink);text-decoration:none}.brand{display:inline-flex;align-items:center;gap:8px}.brand .brandlogo{width:22px;height:22px;border-radius:6px}
+  .brand span{color:var(--accent)}
+  nav a{font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;margin-left:16px}
+  nav a:hover{color:var(--ink)}
+  h1{font-size:30px;letter-spacing:-.02em;margin:14px 0 8px}
+  .lede{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 24px}
+  h2{font-size:19px;margin:30px 0 10px;letter-spacing:-.01em}
+  p,li{font-size:14.5px;line-height:1.7}
+  ul{padding-left:20px}
+  code{background:#efece5;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+  pre{background:var(--navy);color:#eef2f1;border-radius:10px;padding:16px;overflow-x:auto;font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0}
+  .card h2{margin-top:0}
+  .ok{color:#1d7a3a;font-weight:700}
+  footer{padding:26px 0 46px;text-align:center;font-size:13px;color:var(--muted)}
+  footer a{color:var(--ink);font-weight:700}
+
+  @media(max-width:620px){header.top{flex-wrap:wrap;row-gap:8px}header.top nav{flex:1 1 100%}header.top nav a{white-space:nowrap;margin:0 14px 0 0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!--__HEADER_HTML__-->
+
+  <h1>Privacy and sharing</h1>
+  <p class="lede">This page explains local invoice storage, optional sharing, feedback and usage events. You can inspect browser behavior in developer tools; server storage and retention also depend on the service described below.</p>
+
+  <div class="card">
+    <h2>The short version</h2>
+    <ul>
+      <li><span class="ok">✓</span> Create invoices and generate PDFs in your browser without an account. Remembered business details, clients and invoice history are stored in this browser.</li>
+      <li><span class="ok">✓</span> Full client links contain invoice data after <code>#</code>. Opening a full link does not send that fragment in the page request. If you choose shortening, the app separately sends the complete link, including its fragment, to the short-link service.</li>
+      <li><span class="ok">✓</span> Feedback, replies, votes and enabled usage-event payloads are encrypted in the browser before submission. Short-link requests and human-verification signals are separate and are not covered by that encryption claim.</li>
+      <li><span class="ok">✓</span> Pages may load external directory-badge images. Feedback and tool-suggestion forms use Cloudflare Turnstile, which may process browser or device signals under Cloudflare’s privacy policy.</li>
+    </ul>
+  </div>
+
+  <h2>What is stored on this device</h2>
+  <p>The generator can remember your business profile, clients and invoice history in this browser’s localStorage. These records do not automatically sync across devices. Data included in a link leaves this browser when you share it; choosing a short link also sends the full invoice link to the short-link service.</p>
+  <ul>
+    <li><strong>Your choice:</strong> “Remember on this device” controls saving your business profile, clients and invoice history. You can use the generator without saving those records. Other local preferences and random usage identifiers are separate; turning off remembering is not a promise that the browser stores nothing.</li>
+    <li><strong>Records:</strong> your business profile, payment details, saved clients, invoice history and defaults can be stored in this browser. Anyone with access to the browser may be able to read them.</li>
+    <li><strong>Clearing and copies:</strong> browser site-data controls can clear local records. Clearing local records does not retract files or links you already shared, or delete copies held by a recipient or the short-link service.</li>
+    <li><strong>Backups:</strong> downloaded backup and CSV files are separate copies. Store and share them carefully.</li>
+  </ul>
+
+  <h2>Invoice editing and sharing</h2>
+  <ul>
+    <li>Invoice editing and PDF generation run in your browser. The PDF does not need a server to render it.</li>
+    <li>A full client link carries the invoice in its fragment. Anyone with that link can open it, and the email or messaging service you use receives the link you send.</li>
+    <li>A short link requires the complete invoice link to be sent to the short-link service. Compression or encoding makes a link smaller; it does not keep its contents secret.</li>
+  </ul>
+
+  <h2>Network activity</h2>
+  <p>The site loads its pages and assets. Depending on the feature and deployment, it can also make these requests:</p>
+  <ul>
+    <li><strong>Feedback, replies and votes:</strong> when enabled, submission contents are encrypted in the browser. Protected forms send a human-verification token alongside the encrypted envelope. The token is not part of the encrypted message.</li>
+    <li><strong>Usage events:</strong> when enabled, event payloads are encrypted in the browser. They include event names, timestamps and random session or installation identifiers; a page path or referral or team marker may also be included. These identifiers can link activity from the same browser.</li>
+    <li><strong>Short client links:</strong> choosing the one-time shortening action, or using Copy client link, Email client or Text client with the shortening setting on, sends the full invoice-bearing URL to the short-link service. Cancelling Text or entering an invalid number stops before shortening.</li>
+    <li><strong>Directory badges:</strong> pages with external badges may load images from PromptFrenzy, LetsLaunch and Startup Fame. Those providers receive the image requests.</li>
+    <li><strong>Human verification:</strong> feedback and tool-suggestion forms use Cloudflare Turnstile, which may process browser or device signals under Cloudflare’s privacy policy.</li>
+  </ul>
+  <p>Your browser also contacts external services when you follow their links or open your email, messaging or payment app. The Network tab shows requests made by this page; requests made by another app must be assessed separately.</p>
+
+  <h2 id="finder-services">Finder services</h2>
+  <p>The Email Finder and Client Finder are service-powered: each lookup sends a request to our service to run the search.</p>
+  <ul>
+    <li><strong>Data:</strong> the search terms you enter (name, business, website). Email Finder also sends your Brand Pack license key with each lookup so the service can verify access.</li>
+    <li><strong>Transient cache:</strong> discovery queries and candidate page URLs are held in Worker memory and reused for 10 minutes. Ten minutes limits reuse, not deletion: stale entries can remain until replaced, evicted when the cache exceeds 200 entries, or the Worker instance ends. This cache is not written to a database by this code.</li>
+    <li><strong>Quota records:</strong> each Finder allows 3 lookups per day per IP address, resetting at midnight UTC. People sharing a network share that limit. The server stores an IP-based daily key and count, without search terms, with two-day expiry metadata. KV fallback applies a two-day expiry; D1 reads do not enforce expiry, and automatic D1 cleanup has not been verified. This is not a two-day deletion guarantee.</li>
+    <li><strong>Usage totals:</strong> separate daily counters record lookups, hits and misses with 90-day expiry metadata. The Finder code does not write individual search terms to these counters. These totals are distinct from the IP-based quota records; production platform logs and automatic D1 cleanup have not been independently verified.</li>
+    <li><strong>Discovery providers:</strong> when discovery is needed, the service sends a query to DuckDuckGo Lite; a provided website or reusable cache entry can bypass that request. It fetches candidate websites directly and uses Cloudflare DNS to check email domains. These providers receive the requests required for those steps under their own policies.</li>
+    <li><strong>Human verification:</strong> both Finders use Cloudflare Turnstile, which may process browser or device signals under Cloudflare's privacy policy.</li>
+  </ul>
+
+  <h2 id="short-client-links">Short client links</h2>
+  <p>Short links use a Cloudflare-hosted service. Creating one sends the full invoice URL, including its fragment, to that service so the short link can redirect to it.</p>
+  <ul>
+    <li><strong>When:</strong> the one-time “Shorten and copy this link” action requests a short link even when the Settings option is off. “Use short links for Copy, Email and Text” applies to Copy client link, Email client and Text client. Changing it takes effect for the next action.</li>
+    <li><strong>Data:</strong> the URL contains the invoice details included in the full link. The short-link request is not encrypted with the feedback-sealing key. Treat the service as able to read those details.</li>
+    <li><strong>Access:</strong> anyone with either the full or short link can open the invoice. Links are not recipient-restricted or password-protected. Share them only through channels you trust.</li>
+    <li><strong>Control:</strong> turning shortening off stops future automatic shortening. Do not assume it revokes an existing link, gives it an expiry date or removes copies already shared.</li>
+    <li><strong>Retention and deletion:</strong> the implementation stores the full URL in D1 with a creation time and click count. It defines no expiry or user-facing deletion/revocation endpoint. We have not verified a separate operational cleanup period. Treat an existing short link as persistent; clearing local records does not delete it.</li>
+  </ul>
+
+  <h2>How the sealing works</h2>
+  <p>Feedback, reply and vote contents, and enabled usage-event payloads, use the browser encryption shown below. This does not apply to short-link URLs or the separate Turnstile token.</p>
+  <pre>{
+  "v": 1,
+  "key": "&lt;RSA-OAEP-SHA-256 sealed AES key&gt;",
+  "iv":  "&lt;random 12-byte IV&gt;",
+  "data": "&lt;AES-GCM-256 sealed payload&gt;"
+}</pre>
+  <ul>
+    <li>A fresh 256-bit AES-GCM key is generated per submission; the payload is sealed with it.</li>
+    <li>That AES key is sealed with an RSA public key using OAEP and SHA-256.</li>
+    <li>The submission envelope contains an encrypted payload and an encrypted AES key. This browser code demonstrates the encryption step; it does not establish who can access the server or private key, or how long server records are retained.</li>
+  </ul>
+  <p>Our RSA public key fingerprint (SHA-256 of the SPKI):<br /><code>bc91:64b5:27d2:7b4d:a5a0:5d52:63cb:acde:cd2a:a14d:874b:971e:ebbe:4781:3b20:530a</code></p>
+
+  <h2>Verify it yourself</h2>
+  <p>Use synthetic invoice details when testing. The following checks describe the intended behavior; a failed check should be reported.</p>
+  <ul>
+    <li>With “Use short links for Copy, Email and Text” off, use each action and inspect Network for <code>/shorten</code> requests: none should occur.</li>
+    <li>Turn the setting on without downloading another PDF, then repeat each action. Each should make one shortening POST. Its JSON body contains the full client URL, including the fragment. If the service fails, the action should use the full link and report the fallback.</li>
+    <li>With shortening on, cancel the Text prompt or enter an invalid number. Neither should make a shortening request. The separate one-time shortening button should make a request even when the default is off.</li>
+    <li>Open a full invoice link. Its fragment is absent from the page’s HTTP request, but the page can read it. This does not prevent script from sending it in a separate request.</li>
+    <li>On a configured test form, inspect the feedback request: message contents should be inside the ciphertext envelope and the verification token outside it. A preview with no endpoint or site key cannot demonstrate end-to-end delivery.</li>
+  </ul>
+
+  <h2>Site security</h2>
+  <ul>
+    <li>Inspect the Content Security Policy in page source and HTTP response headers in Network. A meta-tag policy does not provide every protection available through response headers.</li>
+    <li>Browser storage can contain invoice records and preferences. Anyone with access to this browser may be able to read them. An absence of cookies would not remove that risk.</li>
+    <li>External resources include Turnstile on forms and directory-badge images where displayed. Review those providers’ privacy terms when using the affected features.</li>
+    <li>Local PDF generation reduces the need to send invoice data to a server. Optional shortening is an exception: the short-link service receives the invoice-bearing URL and needs its own access controls, retention policy and security review.</li>
+  </ul>
+
+  <h2>What we collect, and why</h2>
+  <ul>
+    <li><strong>Feedback:</strong> submission contents are encrypted in your browser for delivery to our team. We review feedback before publishing it on the <a href="/feedback/">feedback board</a>, anonymously unless you ask to be named. An optional reply email is included in the encrypted submission and is not displayed on the board.</li>
+    <li><strong>Usage events:</strong> event names and random browser identifiers help measure visits, downloads and repeat use. They are not direct identifiers such as a name or email, but can connect activity from the same browser.</li>
+    <li><strong>Short links:</strong> the service receives the full invoice link to create and resolve the redirect. See <a href="#short-client-links">Short client links</a> for the data and sharing implications.</li>
+  </ul>
+
+  <h2>Optional Meta AI job-note suggestions</h2>
+  <p>File reading and reconciliation are separate requests, each requiring consent. You check and correct a transcription against the original before it can become invoice evidence. Evidence checks validate that confirmed text, rather than independently verifying the original image or audio. Source files and transcripts remain in memory in this tab; this feature does not upload files to a persistent file-storage API. Prepared files are limited to 4 MB, PDFs to three unencrypted pages and audio to 60 seconds.</p>
+  <p>MonkeeTools can offer Meta AI suggestions when its operator enables the server connection. Local parsing remains the default. Choosing the Meta step and checking its consent box sends the selected photo, PDF or audio clip, or the confirmed source text in that panel, through the MonkeeTools server to Meta Model API (Muse Spark 1.3). Saved invoices, client history, payment details and other browser storage are not included in that request. Meta's API data terms apply to files and text sent to Meta.</p>
+  <p>The server holds the application key in a protected environment or encrypted Worker secret, never in browser code. This feature does not persist submitted notes or model responses. The hosted feature requires a Cloudflare Turnstile human check after you choose consent. Its device and verification signals are separate from your notes; the token is validated on the server before a Meta request. There is no three-use product lock. Each completion is bounded in size and time and has no automatic retry. Source checks and your review are required before a proposal can change the unsaved invoice. This step does not save, issue, send or collect payment for an invoice. A separate local verification harness limits its own attempts; that is not a product quota or an account-wide billing limit.</p>
+
+  <h2>History, honestly</h2>
+  <p>Before 2026-09-12, submissions were sent as plaintext to a token-guarded inbox. That relied on the token staying secret, which is a weak guarantee once the token ships in public page source. So we moved to browser-sealed encryption and rotated every endpoint. Current sharing behavior includes optional server-created short links. See the sections above for what is sent and stored.</p>
+
+  <footer><!--__FOOTER_HTML__--></footer>
+</div>
+</body>
+</html>

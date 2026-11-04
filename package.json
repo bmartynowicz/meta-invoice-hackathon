@@ -1,0 +1,17 @@
+{
+  "name": "monkeetools-meta-invoice-hackathon",
+  "version": "0.2.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "setup:tooling": "npm ci --prefix tooling --ignore-scripts",
+    "start": "node tools/serve_context_demo.mjs",
+    "test": "node --test backend/tests/meta-invoice.test.mjs backend/tests/meta-invoice-extended.test.mjs backend/tests/job-evidence.test.cjs tools/test_job_notes.cjs",
+    "test:browser": "node tools/test_job_context_browser.cjs --build public"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2"
+  }
+}
