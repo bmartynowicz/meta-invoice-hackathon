@@ -41,6 +41,18 @@
     try{return JSON.parse(m.content);}catch{throw Error('The extraction did not contain valid JSON.');}
   }
   const words=s=>s.toLowerCase().match(/[a-z]{3,}/g)?.filter(w=>!['the','for','and','with','work','hours','hour','each','rate','per','agreed','completed'].includes(w))||[];
+  function sourceCandidates(lines,description,role){
+    return lines.filter(l=>words(description).some(w=>words(l.text).includes(w))).flatMap(l=>numericSpans(l.text).filter(x=>checkNumericEvidence({text:l.text,span:x.span,role,value:x.value})).map(x=>({...l,value:x.value,span:x.span})));
+  }
+  function reviewSubtotal(items){
+    let subtotal=0,pricedCount=0,needsDetails=0,excludedCount=0;
+    for(const item of items){
+      if(item.excluded){excludedCount++;continue;}
+      if(!String(item.description||'').trim()||![item.qty,item.rate].every(v=>typeof v==='string'&&decimal.test(v.trim())&&Number(v)<=1000000)){needsDetails++;continue;}
+      subtotal+=Number(item.qty)*Number(item.rate);pricedCount++;
+    }
+    return {subtotal,pricedCount,needsDetails,excludedCount,includedCount:pricedCount+needsDetails};
+  }
   function reconcile(sources,response){
     validateSources(sources);const data=completionData(response);
     if(!exactKeys(data,['clientName','project','lineItems'])||!Array.isArray(data.lineItems)||!data.lineItems.length||data.lineItems.length>12)throw Error('Expected one to twelve evidence-linked work items.');
@@ -64,7 +76,7 @@
       const key=line.sourceId+':'+line.line;used.set(key,[...(used.get(key)||[]),description]);return {...line,quote:r.quote,span:matches[0].span};
     }
     function candidatesFor(description,role){
-      const candidates=lines.filter(l=>words(description).some(w=>words(l.text).includes(w))).flatMap(l=>numericSpans(l.text).filter(x=>checkNumericEvidence({text:l.text,span:x.span,role,value:x.value})).map(x=>Number(x.value)));
+      const candidates=sourceCandidates(lines,description,role).map(x=>Number(x.value));
       return [...new Set(candidates)].sort((a,b)=>a-b);
     }
     const items=data.lineItems.map((item,index)=>{
@@ -93,7 +105,8 @@
       const descriptions=used.get(l.sourceId+':'+l.line)||[];
       return (descriptions.length?remainingClauses(l.text,descriptions):[l.text]).map(text=>({...l,text}));
     });
+    for(const question of questions){if(['qty','rate'].includes(question.field))question.candidates=sourceCandidates(lines,items[question.item].description,question.field==='qty'?'quantity':'unitPrice');}
     return {clientName,project,items,unparsed,questions,sources:sources.map(s=>({...s})),extraction:'multi_source_evidence_checked'};
   }
-  return {checkNumericEvidence,legacyEvidence,remainingClauses,validateSources,completionData,reconcile};
+  return {checkNumericEvidence,legacyEvidence,remainingClauses,validateSources,completionData,reviewSubtotal,reconcile};
 });

@@ -1,7 +1,7 @@
 MonkeeTools - scattered job details to an invoice you can check
-PRIVATE REVIEWED-SOURCE CANDIDATE. Not yet publicly published or submitted.
+Focused reviewed-source package. Prepared for the approved public repository; hackathon entry submitted; final UI validation is tracked separately.
 
-Focused feature source for merged revision 9a6b27cc68f722a13b83b04bc28fd4e29446fcc0. The full private
+Focused feature source for reviewed revision 03da2283494ae672078054780f52fcb0fc16196f. The full private
 MonkeeTools repository and its history are excluded. See PROVENANCE.json for
 exact raw-source hashes, validation and the current release state.
 
@@ -23,7 +23,7 @@ which requires explicit consent and a server-verified real Turnstile token for
 every request, with no arbitrary three-use product lock. Staging test keys cannot
 authorize hosted live inference. No credentials or new account are provided here.
 
-The new workflow: add work notes and an agreed quote; optionally select a photo,
+The new workflow has separate Add work and Review draft steps. Add work notes and an agreed quote; optionally select a photo,
 PDF or audio clip (or record voice); explicitly request a transcription; check it
 against the original and confirm; reconcile sources; resolve missing/conflicting
 values or exclude work; confirm accounting and replacement; apply to the existing
@@ -48,6 +48,6 @@ evidence/UI source files are unchanged from the merged tree. The standalone
 loopback wrapper and this packaging metadata are explicitly derivative helpers.
 
 Third-party parser notices are preserved in backend/meta-invoice/third-party-notices.txt.
-This candidate makes no new license grant for MonkeeTools code. Owner approval
-is required for public publication and any license choice. No private feedback,
+This package makes no new license grant for MonkeeTools code. Existing copyright
+and third-party notices are preserved. Publication scope remains the reviewed subset. No private feedback,
 customer records, dashboards, account secrets, Git history or reports are included.

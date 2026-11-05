@@ -1,15 +1,15 @@
 {
   "schema": 2,
-  "source_commit": "9a6b27cc68f722a13b83b04bc28fd4e29446fcc0",
-  "source_tree": "9aa7885804b2fdd84bd9190be433fe0a1e320416",
-  "scope": "Focused invoice/Meta feature subset; not entire private product/repository.",
+  "source_commit": "03da2283494ae672078054780f52fcb0fc16196f",
+  "source_tree": "22436db325f82e0b5a22d0e634ce976163f2df9e",
+  "scope": "Same 44 reviewed paths as the approved public subset; no added example files, private history or expanded scope.",
   "raw_source_files": [
     {
-      "path": "backend/meta-invoice/extractor.mjs",
+      "path": "backend/meta-invoice/README.md",
       "mode": "100644",
-      "git_blob": "6b9269942ce0701f77c41873ab595d30508b8481",
-      "bytes": 5396,
-      "sha256": "29450ff539b577b2c2ca7f9a7ef628e150a326b823de9609e7114afd8c426d8e"
+      "git_blob": "0300e7eec57e524f161f8fe3c7c4bc0a0faf9725",
+      "bytes": 2016,
+      "sha256": "c62beb6830f3254814c0c5721621d2f8349161170107c7b6545a44a9e6f9812e"
     },
     {
       "path": "backend/meta-invoice/extended.mjs",
@@ -19,18 +19,11 @@
       "sha256": "b1b588d8f3caf633f8308db754ed1ad8af4f75a0c303085227379fd07761f09f"
     },
     {
-      "path": "backend/meta-invoice/worker-route.mjs",
+      "path": "backend/meta-invoice/extractor.mjs",
       "mode": "100644",
-      "git_blob": "5462517304b80a6387b12d02ae51e8455793855d",
-      "bytes": 4768,
-      "sha256": "3a6d1729a49d3bc875e84d0bae840a22e08b677fd9cb7455a6d1791904d87914"
-    },
-    {
-      "path": "backend/meta-invoice/README.md",
-      "mode": "100644",
-      "git_blob": "0300e7eec57e524f161f8fe3c7c4bc0a0faf9725",
-      "bytes": 2016,
-      "sha256": "c62beb6830f3254814c0c5721621d2f8349161170107c7b6545a44a9e6f9812e"
+      "git_blob": "6b9269942ce0701f77c41873ab595d30508b8481",
+      "bytes": 5396,
+      "sha256": "29450ff539b577b2c2ca7f9a7ef628e150a326b823de9609e7114afd8c426d8e"
     },
     {
       "path": "backend/meta-invoice/third-party-notices.txt",
@@ -40,11 +33,18 @@
       "sha256": "be83fef4858ac29c978a81d5ff147af1445b292631fde211255611d72dda1f45"
     },
     {
-      "path": "backend/tests/meta-invoice.test.mjs",
+      "path": "backend/meta-invoice/worker-route.mjs",
       "mode": "100644",
-      "git_blob": "3a127ede822cbb471b797228142aea7fc30178c9",
-      "bytes": 6417,
-      "sha256": "64f81cf2a34cefa9c34b4d0549ce9e9529c4398fb74239108c3a9e736b3f9b54"
+      "git_blob": "5462517304b80a6387b12d02ae51e8455793855d",
+      "bytes": 4768,
+      "sha256": "3a6d1729a49d3bc875e84d0bae840a22e08b677fd9cb7455a6d1791904d87914"
+    },
+    {
+      "path": "backend/tests/job-evidence.test.cjs",
+      "mode": "100644",
+      "git_blob": "c3e9be5c5eb02522a94e70b84014ae897375c438",
+      "bytes": 8532,
+      "sha256": "413420de9631d21c0b0817112c5e895863df6bdcfa9a28ee0d58666f00782a22"
     },
     {
       "path": "backend/tests/meta-invoice-extended.test.mjs",
@@ -61,18 +61,18 @@
       "sha256": "f5690d9bed25b8b28de5552a9be51a990094c84f0eb2dd424d3c0e89486f43ad"
     },
     {
-      "path": "backend/tests/job-evidence.test.cjs",
+      "path": "backend/tests/meta-invoice.test.mjs",
       "mode": "100644",
-      "git_blob": "4fa2fd457aea8e7271a52387c863b61275238d71",
-      "bytes": 6642,
-      "sha256": "372158ec959a5148884af7309df510bca81197ebdf0a500a749f72469e07866b"
+      "git_blob": "3a127ede822cbb471b797228142aea7fc30178c9",
+      "bytes": 6417,
+      "sha256": "64f81cf2a34cefa9c34b4d0549ce9e9529c4398fb74239108c3a9e736b3f9b54"
     },
     {
       "path": "source/invoice-generator/invoice-generator.html",
       "mode": "100644",
-      "git_blob": "a2f334040f0726db897418c176576ef0e80ddf3e",
-      "bytes": 700702,
-      "sha256": "aa624fa38dc454957439b7b3712e6f03a08ae5403c288dd798c8d49ae5edd81c"
+      "git_blob": "298430e07926d8a9a95bc7ec1f63d7d236dfc4af",
+      "bytes": 708805,
+      "sha256": "5c9bb39c2fce66949498831c5cf57b80e92a832a28305dd1ee5319f8fdddfa3b"
     },
     {
       "path": "source/invoice-generator/privacy.html",
@@ -84,23 +84,16 @@
     {
       "path": "source/invoice-generator/wf/job-evidence.js",
       "mode": "100644",
-      "git_blob": "6d6a1551644d7bda3f0ed3dcb04d311e8012ec8f",
-      "bytes": 10404,
-      "sha256": "2ba0fd41a5c6129e57717ddc9fbc4248c7a952fe9bffdc0b77efbfdf81a50a0d"
+      "git_blob": "b704334b5fd83cfd84d05b61f3d2850e2f7ac4d8",
+      "bytes": 11304,
+      "sha256": "676bf93586b668beace18a473df68ae0e4f0c1cbb2c4585395b5ed7507bdc279"
     },
     {
       "path": "source/invoice-generator/wf/job-intake.js",
       "mode": "100644",
-      "git_blob": "453303389c39861c159d9f7047437967c1f01c46",
-      "bytes": 9654,
-      "sha256": "4bfa5959a1367527052afc2aae7cc473fad0213d9322ac2046e5bbbd366ca89d"
-    },
-    {
-      "path": "tooling/package.json",
-      "mode": "100644",
-      "git_blob": "7f6314a1ad89ca1f5e7104401a0093465fc91405",
-      "bytes": 128,
-      "sha256": "eb9c119a7b160ed82430884f0d614bffaa2eb639749fe10d1fd7a42e141de78e"
+      "git_blob": "e5e8b9ea8d04e63af132345f0d7ebd66e8b46805",
+      "bytes": 9883,
+      "sha256": "71dcb97a2b38e7426b246dff5dcb0f2bf5f39e9cb98e836e6fd4c42b3b72b20e"
     },
     {
       "path": "tooling/package-lock.json",
@@ -110,11 +103,25 @@
       "sha256": "a8c318bb9e52325b3969d63557068228dd16065560d823362085a25a6959a6a8"
     },
     {
+      "path": "tooling/package.json",
+      "mode": "100644",
+      "git_blob": "7f6314a1ad89ca1f5e7104401a0093465fc91405",
+      "bytes": 128,
+      "sha256": "eb9c119a7b160ed82430884f0d614bffaa2eb639749fe10d1fd7a42e141de78e"
+    },
+    {
       "path": "tools/serve_meta_invoice_demo.mjs",
       "mode": "100644",
       "git_blob": "9f515dc4db86a217bd3f91b3655c90bef9e66c99",
       "bytes": 4042,
       "sha256": "293717e1fd25ac77a665e494b7553aaa29f80ca416ef395c974099d4d02178bc"
+    },
+    {
+      "path": "tools/test_job_context_browser.cjs",
+      "mode": "100644",
+      "git_blob": "331cd1ff042ff2916b270797dc2babc1ff90c00f",
+      "bytes": 17949,
+      "sha256": "bb6c6fc2821a68249c54708f277bd6bbe0768485a322736939d5cb11499290ec"
     },
     {
       "path": "tools/test_job_notes.cjs",
@@ -124,18 +131,11 @@
       "sha256": "60c884f57d745e511f4e75e10e1d8a4ac96532ed709ba7c83da9c3601987d251"
     },
     {
-      "path": "tools/test_job_context_browser.cjs",
-      "mode": "100644",
-      "git_blob": "60549b03ae01633e3d0adcd69db71c03516094d5",
-      "bytes": 13625,
-      "sha256": "b8b82740dc3b06c75bfa529a6f569d2d1b43d6acbe071582bf65c2ae450ec02d"
-    },
-    {
       "path": "tools/test_meta_invoice_browser.cjs",
       "mode": "100644",
-      "git_blob": "65d9cf2b3511a1b38a0c00a993b92182a241fcb8",
-      "bytes": 11652,
-      "sha256": "2f1b0d643960f27a561a081e8efa92953a888b3f623e71110b8dca62561ea701"
+      "git_blob": "1a5abbc91d1b56ba3d9f61f9be1bf0c2a5603da2",
+      "bytes": 12152,
+      "sha256": "96f80f572ff0f876ba5079d3ec6207f73bf1abeba3d3c3bc9a37e0ff0af81b85"
     }
   ],
   "derivative_files": [
@@ -147,7 +147,7 @@
     "PROVENANCE.json"
   ],
   "public_build": "Sanitized offline staging-derived build; not byte-for-byte production.",
-  "publication_state": "not_published",
+  "publication_state": "reviewed_same_scope_refresh_full_pr_linux_passed",
   "license_grant": "No new MonkeeTools license grant.",
   "release_evidence": {
     "commit": "9a6b27cc68f722a13b83b04bc28fd4e29446fcc0",
@@ -173,7 +173,29 @@
       "pdf_pages": 1,
       "pdf_sha256": "4869a39a514501b33e16412640bfc93f01f3493331fcc5d05b1c37cc5ec7ddd1"
     },
-    "disclosure": "Removed one echoed instruction from the voice transcription before confirming; spoken facts unchanged. Three real media reads were performed under7111cdd4; final reconciliation under9a6b27cc. No continuous-run timing claim."
+    "disclosure": "Removed one echoed instruction from the voice transcription before confirming; spoken facts unchanged. Three real media reads were performed under7111cdd4; final reconciliation under9a6b27cc. No continuous-run timing claim.",
+    "current_ui_candidate": {
+      "commit": "03da2283494ae672078054780f52fcb0fc16196f",
+      "tree": "22436db325f82e0b5a22d0e634ce976163f2df9e",
+      "pr": 81,
+      "linux_run": 41944875652,
+      "state": "full_linux_browser_suite_passed",
+      "new_provider_calls": 0
+    },
+    "model_verification_commit": "9a6b27cc68f722a13b83b04bc28fd4e29446fcc0",
+    "canonical_main_candidate": {
+      "commit": "327b0202cc633a5ca3b3b5a2723a05b24600db97",
+      "tree": "22436db325f82e0b5a22d0e634ce976163f2df9e",
+      "state": "merged; fresh main validation and release pending"
+    }
   },
-  "new_live_media_proof": "Actual synthetic PNG/PDF/WAV reads and subsequent reviewed reconciliation verified; recording uses no new inference."
+  "new_live_media_proof": "Actual synthetic PNG/PDF/WAV reads and subsequent reviewed reconciliation verified; recording uses no new inference.",
+  "package_tests": {
+    "unit_tests": 41,
+    "multimodal_browser_checks": 21,
+    "result": "passed",
+    "synthetic_only": true,
+    "new_provider_calls": 0,
+    "windows_browser_adapter": "POSIX public suffix normalized only; all assertions preserved"
+  }
 }

@@ -31,7 +31,7 @@ async function check(name,fn){await fn();report.checks.push(name);console.log('P
   await ctx.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
   const p=await ctx.newPage();p.on('pageerror',e=>report.errors.push(e.message));p.on('dialog',d=>d.accept());
   try{
-   await p.goto(origin);await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesMetaActions').waitFor({state:'visible'});
+   await p.goto(origin);await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesMetaOptions').waitFor({state:'visible'});await p.locator('#jobNotesMetaOptions>summary').click();
    await check(`${viewport.width}px: consent and no automatic model call`,async()=>{
     assert.equal(calls,0);assert(await p.locator('#jobNotesMetaScan').isDisabled());
     await p.locator('#jobNotesInput').fill(notes);assert(await p.locator('#jobNotesMetaScan').isDisabled());
@@ -41,9 +41,9 @@ async function check(name,fn){await fn();report.checks.push(name);console.log('P
     const before=await p.locator('#invoiceForm').evaluate(el=>Array.from(el.querySelectorAll('input,textarea,select')).map(x=>[x.id,x.value,x.checked]));
     await p.locator('#jobNotesMetaConsent').check();await p.locator('#jobNotesMetaScan').click();
     await p.getByText(/Meta Muse Spark 1.3 response received and source-checked/).waitFor();assert.equal(calls,1);
-    assert.equal(await p.locator('#jobNotesReviewed').isChecked(),false);assert.equal(await p.locator('#jobNotesCurrency').inputValue(),'');
+    assert.equal(await p.locator('#jobNotesReviewed').isChecked(),false);assert.equal(await p.locator('#jobNotesCurrency').inputValue(),'USD');assert.match(await p.locator('#jobNotesDefaultsSummary').innerText(),/USD.*due in 14 days.*no tax/);
     const after=await p.locator('#invoiceForm').evaluate(el=>Array.from(el.querySelectorAll('input,textarea,select')).map(x=>[x.id,x.value,x.checked]));assert.deepEqual(after,before);
-    assert((await p.locator('#jobNotesItems').innerText()).includes('Note 3: copy editing: 6 hours @ $90 per hour'));
+    for(const summary of await p.locator('.job-item-evidence summary').all())await summary.click();assert((await p.locator('#jobNotesItems').innerText()).includes('Note 3: copy editing: 6 hours @ $90 per hour'));
     assert(await p.locator('#jobNotesUnparsed').isVisible());
     await p.locator('#jobNotesPanel').evaluate(el=>{const label=document.createElement('p');label.textContent='SYNTHETIC REGRESSION: simulated Meta response; no live provider call.';label.style.cssText='padding:10px;background:#fff3cd;font-weight:bold';el.prepend(label);});
     const proposalShot=path.join(out,`meta-proposal-${viewport.width}.png`);await p.locator('#jobNotesPanel').screenshot({path:proposalShot});report.screenshots.push(path.relative(root,proposalShot));
@@ -77,7 +77,7 @@ async function check(name,fn){await fn();report.checks.push(name);console.log('P
     await ctx.route('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',r=>{humanLoads++;return r.fulfill({contentType:'application/javascript',body:"window.turnstile={render:(_selector,o)=>{window.__releaseSyntheticHuman=()=>o.callback('synthetic_human_token');return 'synthetic_widget';},remove:()=>{window.__humanRemoved=true;}};"});});
     await ctx.route(origin+'/api/invoice-draft/status',r=>r.fulfill({contentType:'application/json',body:JSON.stringify({model:'muse-spark-1.3',configured:false,available:false,humanVerification:true,reason:'test_verification_live_model_disabled'})}));
     await ctx.addInitScript(()=>localStorage.setItem('mt_onboarding_v1',JSON.stringify({skipped:true})));
-    await p.reload();await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesInput').fill(notes);
+    await p.reload();await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesMetaOptions').waitFor({state:'visible'});await p.locator('#jobNotesMetaOptions>summary').click();await p.locator('#jobNotesInput').fill(notes);
     await check('staging test verification disables live calls while preserving local review',async()=>{
       await p.getByText('Staging uses test verification. Live Meta is disabled here; local parsing and PDF export still work.',{exact:true}).waitFor();
       await p.locator('#jobNotesMetaConsent').check();assert(await p.locator('#jobNotesMetaScan').isDisabled());assert.equal(humanLoads,0);assert.equal(hostedCalls,0);
@@ -88,7 +88,7 @@ async function check(name,fn){await fn();report.checks.push(name);console.log('P
     await ctx.route(origin+'/api/invoice-draft/status',r=>r.fulfill({contentType:'application/json',body:JSON.stringify({model:'muse-spark-1.3',configured:true,available:true,humanVerification:true})}));
     await ctx.route(origin+'/api/invoice-draft',r=>{const input=r.request().postDataJSON();assert.equal(input.token,'synthetic_human_token');assert.equal(input.consent,true);assert.equal(input.notes,notes);hostedCalls++;return r.fulfill({contentType:'application/json',body:JSON.stringify(completion(facts()))});});
     await ctx.addInitScript(()=>localStorage.setItem('mt_onboarding_v1',JSON.stringify({skipped:true})));
-    await p.reload();await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesInput').fill(notes);
+    await p.reload();await p.locator('#jobNotesPrimary').click();await p.locator('#jobNotesMetaOptions').waitFor({state:'visible'});await p.locator('#jobNotesMetaOptions>summary').click();await p.locator('#jobNotesInput').fill(notes);
     await check('hosted human verification loads only after consent and gates the request',async()=>{
       assert.equal(humanLoads,0);assert.equal(hostedCalls,0);await p.locator('#jobNotesMetaConsent').check();
       await p.waitForFunction(()=>typeof window.__releaseSyntheticHuman==='function');assert.equal(humanLoads,1);assert(await p.locator('#jobNotesMetaScan').isDisabled());

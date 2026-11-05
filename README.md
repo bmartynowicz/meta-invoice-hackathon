@@ -4,7 +4,9 @@ Turn scattered job notes, a quote photo, a work-record PDF or a voice note into 
 
 **Live product:** https://monkeetools.pages.dev/
 
-This repository contains the **reviewed 44-file hackathon source subset**, not the private MonkeeTools product repository or its history. The initial snapshot corresponds to production source revision `9a6b27cc68f722a13b83b04bc28fd4e29446fcc0`. Later review-presentation improvements may be visible on the live site; the source snapshot and provenance below identify exactly what is included here.
+**Narrated demo:** https://x.com/MonkeeTools/status/2118145492630581301
+
+This repository contains the **reviewed 44-file hackathon source subset**, not the private MonkeeTools product repository or its history. This snapshot corresponds to reviewed source revision `03da2283494ae672078054780f52fcb0fc16196f`, tree `22436db325f82e0b5a22d0e634ce976163f2df9e`. It includes visible microphone/upload actions, the multimodal Add your work entry, the simplified Add work → Review draft → Invoice & PDF flow, source-linked rate choices, current-invoice defaults and factual Powered by Meta attribution.
 
 ## How it works
 
@@ -32,7 +34,7 @@ npm start
 
 Open `http://127.0.0.1:8767/`. No provider request occurs at startup. The local parser needs no account. Live file reading and reconciliation require your own approved Meta application connection, supplied only to the server process. See `README.txt`, `PROVENANCE.json`, and `backend/meta-invoice/README.md` for the focused harness, bounds and privacy behavior. Browser tests use synthetic responses and block external traffic.
 
-The retained snapshot passed 38 focused unit tests, 15 multimodal browser checks and no-key startup validation. Its canonical product revision passed the full Ubuntu browser suite. Those results do not replace proof of a real model request.
+This exact focused package passed 41 unit tests, 21 multimodal browser checks and no-key startup validation. This source tree passed the full Ubuntu browser suite in PR #81. Main validation and deployment are separate release steps. Those results do not replace proof of a real model request.
 
 ## What was built during the hackathon
 
@@ -40,6 +42,7 @@ MonkeeTools already had its invoice editor, history and PDF engine. The hackatho
 
 ## Source and notices
 
-`MANIFEST.json` records hashes for this focused snapshot. `PROVENANCE.json` distinguishes raw product source from the sanitized prebuilt preview and standalone local wrapper. The historical `README.txt` retains its pre-publication candidate label; this README records the actual public repository status.
+`MANIFEST.json` records hashes for this focused snapshot. `PROVENANCE.json` distinguishes raw product source from the sanitized prebuilt preview and standalone local wrapper. `README.txt` documents the focused local harness; this README records the public repository scope.
 
 Existing copyright and third-party notices are preserved, including `backend/meta-invoice/third-party-notices.txt`. **No new license grant is made for MonkeeTools code.** The prebuilt preview is an offline verification build, not a production deployment bundle. Private feedback, account credentials, customer recordings, unrelated backend services and repository history are excluded.
+

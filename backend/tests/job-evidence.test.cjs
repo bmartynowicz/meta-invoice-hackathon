@@ -1,5 +1,5 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
-const {checkNumericEvidence,remainingClauses,reconcile}=require('../../source/invoice-generator/wf/job-evidence.js');
+const {checkNumericEvidence,remainingClauses,reconcile,reviewSubtotal}=require('../../source/invoice-generator/wf/job-evidence.js');
 // Adversarial ideas adapted from the retained Picard/Groq proposal. Its original
 // span/return-value contract was incorrect; these corrected tests execute locally.
 const specimen=(text,token,role,value=token)=>({text,span:[text.indexOf(token),text.indexOf(token)+token.length],role,value});
@@ -25,6 +25,25 @@ test('missing or conflicting rates become targeted questions rather than invente
  const d=facts();d.lineItems[0].rate='';d.lineItems[0].rateEvidence=null;
  assert.equal(reconcile(sources,completion(d)).questions[0].reason,'missing');
  const p=reconcile([...sources,{id:'s3',label:'Second quote',text:'copy editing rate: $95/hour'}],completion(facts()));assert.equal(p.items[0].rate,'');assert.equal(p.questions[0].reason,'conflict');assert.deepEqual(p.questions[0].options,[90,95]);
+});
+
+test('rate choices retain the exact source and never offer a time quantity as a price',()=>{
+ const p=reconcile([...sources,{id:'s3',label:'Voice note',text:'copy editing proposed rate: $95/hour'}],completion(facts()));
+ const q=p.questions.find(q=>q.field==='rate');assert.deepEqual(q.candidates.map(c=>Number(c.value)),[90,95]);
+ assert.equal(q.candidates[0].label,'Agreed quote');assert.equal(q.candidates[0].sourceId,'s2');assert.equal(q.candidates[0].line,1);assert.equal(q.candidates[0].text,'copy editing agreed rate: $90/hour');
+ assert.equal(q.candidates[1].label,'Voice note');assert.equal(q.candidates[1].text.slice(...q.candidates[1].span),'95');assert.equal(p.items[0].rate,'');
+});
+
+test('review subtotal counts only included, fully specified work without inventing missing values',()=>{
+ const items=[{description:'copy editing',qty:'6',rate:''},{description:'landing pages',qty:'2',rate:'150'},{description:'travel',qty:'',rate:'',excluded:true}];
+ const before=JSON.stringify(items);assert.deepEqual(reviewSubtotal(items),{subtotal:300,pricedCount:1,needsDetails:1,excludedCount:1,includedCount:2});
+ items[0].rate='90';assert.equal(reviewSubtotal(items).subtotal,840);items[0].rate='95';assert.equal(reviewSubtotal(items).subtotal,870);items[0].rate='';assert.equal(JSON.stringify(items),before);
+});
+
+test('review subtotal handles zero, decimal precision and invalid input like the handoff',()=>{
+ for(const invalid of ['', '-1','1.001','Infinity','1000001','1e2'])assert.equal(reviewSubtotal([{description:'work',qty:'2',rate:invalid}]).needsDetails,1,invalid);
+ assert.equal(reviewSubtotal([{description:'',qty:'1',rate:'90'}]).needsDetails,1);
+ assert.deepEqual(reviewSubtotal([{description:'no charge',qty:'1',rate:'0'},{description:'work',qty:'1.5',rate:'75.50'}]),{subtotal:113.25,pricedCount:2,needsDetails:0,excludedCount:0,includedCount:2});
 });
 test('unsupported numeric evidence becomes a blank clarification without losing valid work',()=>{
  for(const edit of [d=>{d.lineItems[0].rate='6';d.lineItems[0].rateEvidence=ref('s1',3,'6 hours');},d=>d.lineItems[0].rateEvidence.quote='$900/hour',d=>d.lineItems[0].rateEvidence=ref('s2',2,'$150/page')]){const d=facts();edit(d);const p=reconcile(sources,completion(d));assert.equal(p.items[0].rate,'');assert.equal(p.items[0].evidence.rate,undefined);assert.equal(p.items[0].qty,'6');assert.equal(p.items[1].rate,'150');assert.equal(p.questions[0].reason,'unsupported_evidence');assert.deepEqual(p.questions[0].options,[90]);}

@@ -1,7 +1,27 @@
 {
-  "source_commit": "9a6b27cc68f722a13b83b04bc28fd4e29446fcc0",
-  "source_tree": "9aa7885804b2fdd84bd9190be433fe0a1e320416",
+  "source_commit": "03da2283494ae672078054780f52fcb0fc16196f",
+  "source_tree": "22436db325f82e0b5a22d0e634ce976163f2df9e",
   "files": [
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 7955,
+      "sha256": "c8d2d44c17481514386c3e3455d4a6785cefcbe086ebc556f5ee50ef9367c45a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3887,
+      "sha256": "fcc19c487b4c39311d56c95a3649b739c6b494351681ee65aaff042cbcb7bb83"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 3533,
+      "sha256": "5239dcdbfb31c6b072448a648b26deb22f68f3b23d9f479708519a6c141d6aab"
+    },
+    {
+      "path": "backend/meta-invoice/README.md",
+      "bytes": 2016,
+      "sha256": "c62beb6830f3254814c0c5721621d2f8349161170107c7b6545a44a9e6f9812e"
+    },
     {
       "path": "backend/meta-invoice/extended.mjs",
       "bytes": 7084,
@@ -11,11 +31,6 @@
       "path": "backend/meta-invoice/extractor.mjs",
       "bytes": 5396,
       "sha256": "29450ff539b577b2c2ca7f9a7ef628e150a326b823de9609e7114afd8c426d8e"
-    },
-    {
-      "path": "backend/meta-invoice/README.md",
-      "bytes": 2016,
-      "sha256": "c62beb6830f3254814c0c5721621d2f8349161170107c7b6545a44a9e6f9812e"
     },
     {
       "path": "backend/meta-invoice/third-party-notices.txt",
@@ -29,8 +44,8 @@
     },
     {
       "path": "backend/tests/job-evidence.test.cjs",
-      "bytes": 6642,
-      "sha256": "372158ec959a5148884af7309df510bca81197ebdf0a500a749f72469e07866b"
+      "bytes": 8532,
+      "sha256": "413420de9631d21c0b0817112c5e895863df6bdcfa9a28ee0d58666f00782a22"
     },
     {
       "path": "backend/tests/meta-invoice-extended.test.mjs",
@@ -53,11 +68,6 @@
       "sha256": "43340124b855a208230c2152b8a8dc4ae85db69eea675142ca45425d8fb5ec16"
     },
     {
-      "path": "PROVENANCE.json",
-      "bytes": 7014,
-      "sha256": "86f0d9bdbc5f90208834275e92f369dec79c4799eeecf0e2a3cfade19676497f"
-    },
-    {
       "path": "public/apple-touch-icon.png",
       "bytes": 24904,
       "sha256": "476438e239506c5dbbd15865e0bd422928b756ba1349527153d4cf4d0e3c9cc1"
@@ -69,8 +79,8 @@
     },
     {
       "path": "public/credit-notes/index.html",
-      "bytes": 518274,
-      "sha256": "795855caed1f85e3e52c578e2724200a34a17fde94ef2952985b81365a954c8c"
+      "bytes": 522020,
+      "sha256": "d57f01f66265e2b365cb583d0c38fd4b5d51770874366d7093549464ef6deaaa"
     },
     {
       "path": "public/favicon.png",
@@ -84,8 +94,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 809625,
-      "sha256": "8237444521daa059764476d65df31b91c5255525f862ac47ba11bcc2fa76e58c"
+      "bytes": 825477,
+      "sha256": "c71acba29f6843bc782ad4c40e9a74c299e070a82e26fcf0de07de9c4a7963f9"
     },
     {
       "path": "public/logo.png",
@@ -94,23 +104,23 @@
     },
     {
       "path": "public/packing-slips/index.html",
-      "bytes": 496184,
-      "sha256": "9084a2890c1814b469534b54e46ac86bc3e737c933d8af48fbf274012699f6a1"
+      "bytes": 499616,
+      "sha256": "aebf7b8403297adbe0035d3c00c6cb725bafa3b583f0eb78d895daba1cccc054"
     },
     {
       "path": "public/privacy/index.html",
-      "bytes": 29928,
-      "sha256": "8c6b1062d151f8210f1188871a3266178b73fc590986b009e74ef865a216708d"
+      "bytes": 30145,
+      "sha256": "cc473715461b31dc7c49ed0af67816850a1e5efcf79e312dfa71289d1259e57a"
     },
     {
       "path": "public/quote-generator/index.html",
-      "bytes": 541444,
-      "sha256": "018bd8365569cc63a4a7e868df8c3072a8c78db8694c47cf8848475d6fa6a90a"
+      "bytes": 545678,
+      "sha256": "01ca13f9bb17be2e278725c2d073d59995c1f32bf69dc6793eeedf49a6c5bfb3"
     },
     {
       "path": "public/receipts/index.html",
-      "bytes": 506741,
-      "sha256": "aa8619aac8982dae73ed3199c2f43739f35b707bed981bc1235f53b4d4b1db44"
+      "bytes": 510283,
+      "sha256": "a2fa85b5244f58be76a66dd6ab3867144825e77798971f567d4b6dde72d615d7"
     },
     {
       "path": "public/shots/recurring-invoices.png",
@@ -129,8 +139,8 @@
     },
     {
       "path": "public/timesheets/index.html",
-      "bytes": 388297,
-      "sha256": "28366f175c16714054b3bb705ab807ed6325e06dec0ee3a0ea80a28ae9027c12"
+      "bytes": 390371,
+      "sha256": "835bfa561aed277b04efae684ba20e8fd58f1ba54abdc1f7bce78f3c08b4daff"
     },
     {
       "path": "public/toolpilot-badge.png",
@@ -139,23 +149,18 @@
     },
     {
       "path": "public/tools/index.html",
-      "bytes": 76904,
-      "sha256": "f23ecc2316bcb55e3160cd1ee4a7d923f55ae0510b7a959497ef5f9c710f4a4a"
+      "bytes": 77308,
+      "sha256": "9d69e5b97351e8ec984e71800480bf5c34ce59aef675959b3415911ef4cc0603"
     },
     {
       "path": "public/view/index.html",
-      "bytes": 339725,
-      "sha256": "bfa7626fcab08fb0975e8e7f9924a01c9243eac6530ed648c041cef7b00f6620"
-    },
-    {
-      "path": "README.txt",
-      "bytes": 3385,
-      "sha256": "1868261ebbe50e8f74001d5ce197c4dc4975330f9f5a8882ef58fc7c96432ac1"
+      "bytes": 340653,
+      "sha256": "a4202c059ae17c9a1a7950577a61020a86ef425ac4a0bc0b9534addb14122904"
     },
     {
       "path": "source/invoice-generator/invoice-generator.html",
-      "bytes": 700702,
-      "sha256": "aa624fa38dc454957439b7b3712e6f03a08ae5403c288dd798c8d49ae5edd81c"
+      "bytes": 708805,
+      "sha256": "5c9bb39c2fce66949498831c5cf57b80e92a832a28305dd1ee5319f8fdddfa3b"
     },
     {
       "path": "source/invoice-generator/privacy.html",
@@ -164,13 +169,13 @@
     },
     {
       "path": "source/invoice-generator/wf/job-evidence.js",
-      "bytes": 10404,
-      "sha256": "2ba0fd41a5c6129e57717ddc9fbc4248c7a952fe9bffdc0b77efbfdf81a50a0d"
+      "bytes": 11304,
+      "sha256": "676bf93586b668beace18a473df68ae0e4f0c1cbb2c4585395b5ed7507bdc279"
     },
     {
       "path": "source/invoice-generator/wf/job-intake.js",
-      "bytes": 9654,
-      "sha256": "4bfa5959a1367527052afc2aae7cc473fad0213d9322ac2046e5bbbd366ca89d"
+      "bytes": 9883,
+      "sha256": "71dcb97a2b38e7426b246dff5dcb0f2bf5f39e9cb98e836e6fd4c42b3b72b20e"
     },
     {
       "path": "submission/demo-notes.txt",
@@ -179,8 +184,8 @@
     },
     {
       "path": "submission/new-work-and-provenance.txt",
-      "bytes": 1220,
-      "sha256": "778ec853f856f2f196db6a7543343c530d11835c606603fe8746588b1e17d123"
+      "bytes": 844,
+      "sha256": "341c1fde362b19697d63fe681d669a53fd5cc9e1c2da6f2b7b18fc5dcda917a6"
     },
     {
       "path": "tooling/package-lock.json",
@@ -204,8 +209,8 @@
     },
     {
       "path": "tools/test_job_context_browser.cjs",
-      "bytes": 13625,
-      "sha256": "b8b82740dc3b06c75bfa529a6f569d2d1b43d6acbe071582bf65c2ae450ec02d"
+      "bytes": 17949,
+      "sha256": "bb6c6fc2821a68249c54708f277bd6bbe0768485a322736939d5cb11499290ec"
     },
     {
       "path": "tools/test_job_notes.cjs",
@@ -214,12 +219,10 @@
     },
     {
       "path": "tools/test_meta_invoice_browser.cjs",
-      "bytes": 11652,
-      "sha256": "2f1b0d643960f27a561a081e8efa92953a888b3f623e71110b8dca62561ea701"
+      "bytes": 12152,
+      "sha256": "96f80f572ff0f876ba5079d3ec6207f73bf1abeba3d3c3bc9a37e0ff0af81b85"
     }
   ],
-  "private_feedback_scan": {
-    "private_feedback": "absent"
-  },
-  "published": false
+  "private_feedback_scan": "passed",
+  "publication_scope": "same approved44 source paths plus existing public README; dependencies, generated test reports and recordings excluded"
 }

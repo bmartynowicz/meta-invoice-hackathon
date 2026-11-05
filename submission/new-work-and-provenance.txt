@@ -1,7 +1,5 @@
-MonkeeTools is an existing product. The invoice editor, history, templates, sharing and PDF engine predate this event.
+MonkeeTools already provided the editor, history, sharing and PDF engine. The hackathon feature adds optional Meta interpretation, reviewed multimodal transcription, cross-source reconciliation, independent field evidence, clarification and human accounting gates. The final UI separates work entry from review, preserves current invoice defaults and provides source evidence on demand. Powered by Meta is factual text, not a sponsorship or logo-license claim.
 
-Built during the hackathon: discoverable job-note entry, optional server-side Meta interpretation, independent work/quantity/rate evidence, cross-note reconciliation, missing/conflicting-value clarification and possible-duplicate review, photo/PDF/audio/voice intake, user-confirmed transcription, unresolved-note and accounting gates, stale-response handling and regression tests. Picard/Groq supplied one sanitized test proposal, corrected and tested locally.
-
-Source revision: 9a6b27cc68f722a13b83b04bc28fd4e29446fcc0
-Exact source tree: 9aa7885804b2fdd84bd9190be433fe0a1e320416
-The included raw source files match this merged tree. The prebuilt public files use test licensing and a sanitized local-review configuration; they are not a production deployment bundle. The focused local wrapper is packaging code, clearly separated from the unchanged hosted handler. No repository history, private feedback, unrelated backend, dashboards or account credentials are included. See PROVENANCE.json for current validation/release status. Do not infer live media verification from synthetic tests.
+Source commit: 03da2283494ae672078054780f52fcb0fc16196f
+Full source tree: 22436db325f82e0b5a22d0e634ce976163f2df9e
+Only the same reviewed 44 paths are included; public pages are sanitized offline builds, not production deployment artifacts. No private feedback, credentials, account files, repository history, customer recordings, dashboards or internal receipts are included.

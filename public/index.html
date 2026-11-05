@@ -78,9 +78,26 @@
     .job-notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 16px}
     .job-notes-item{display:grid;grid-template-columns:minmax(0,1fr) 100px 120px;gap:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
     .job-notes-item .fine{grid-column:1/-1;margin:0 0 12px;overflow-wrap:anywhere}
+    .job-source-choices{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;padding:0;list-style:none}
+    .job-source-choices li{max-width:100%;flex:1 1 220px}
+    .job-source-choices .fine{display:block;margin-top:4px;overflow-wrap:anywhere}
+    .job-review-subtotal{border-block:1px solid var(--line);padding:12px 0;margin:16px 0}
+    .job-review-subtotal strong{display:block;font-size:20px}
+    .job-flow-steps{display:flex;gap:8px 18px;flex-wrap:wrap;list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:var(--muted)}
+    .job-flow-steps [aria-current=step]{font-weight:800;color:var(--ink)}
+    .job-invoice-details{border-block:1px solid var(--line);padding:12px 0;margin:16px 0}
+    .job-invoice-details summary{cursor:pointer;font-weight:700;padding:4px 0}
+    .job-invoice-details .fine{margin:6px 0 12px}
+    .job-review-parties{grid-template-columns:repeat(2,minmax(0,1fr))}
+    #jobNotesMetaOptions{margin:14px 0}
+    #jobNotesMetaOptions>summary{cursor:pointer;font-weight:700;padding:10px 0}
+    .job-item-evidence{grid-column:1/-1;font-size:13px;margin:0 0 12px;color:var(--muted)}
+    .job-item-evidence summary{cursor:pointer}
+    .job-item-evidence .fine{margin:8px 0 0}
     .job-notes-panel .checkline{margin:14px 0;align-items:flex-start;line-height:1.5}
     #jobNotesIntake{margin:16px 0;padding:14px 0;border-block:1px solid var(--line)}
     #jobNotesIntake summary{cursor:pointer;font-weight:700;padding:8px 0}
+    .job-capture-actions .btn{display:inline-flex;align-items:center;gap:7px}
     .job-source{margin:18px 0;padding-top:12px;border-top:1px solid var(--line)}
     #jobNotesMediaPreview img{max-width:100%;max-height:280px;object-fit:contain}
     #jobNotesMediaPreview audio{max-width:100%}
@@ -978,8 +995,8 @@ html{scroll-padding-top:calc(var(--site-header-height,160px) + var(--site-filter
       <p class="hero-badge">No signup &middot; Free forever</p>
       </div>
       <h1><span class="h1-accent">Just get paid.</span></h1>
-      <p class="hero-copy">Paste your job notes, check the details and download your PDF.</p>
-      <p class="hero-cta"><button type="button" class="btn primary" id="jobNotesPrimary" aria-expanded="false" aria-controls="jobNotesPanel">Paste job notes</button><button type="button" class="btn secondary" data-entry="blank" id="startBlankBtn">Start blank</button></p>
+      <p class="hero-copy">Notes, voice, photo or PDF → review → invoice.</p>
+      <p class="hero-cta"><button type="button" class="btn primary" id="jobNotesPrimary" aria-expanded="false" aria-controls="jobNotesPanel">Add your work</button><button type="button" class="btn secondary" data-entry="blank" id="startBlankBtn">Start blank</button></p>
       <div class="hero-tools"><button type="button" class="linklike" id="jobNotesSample" aria-expanded="false" aria-controls="jobNotesPanel">Try a sample</button><span class="hero-mode" id="jobNotesConnectionStatus">Local preview · No AI connection</span></div>
       <figure class="hero-proof"><blockquote>“So easy to use and I like that I don't have to sign up. It's simple and clean and efficient.”</blockquote><figcaption>Alejandro D., G2 reviewer · <a href="https://www.g2.com/products/monkeetools/reviews" target="_blank" rel="noopener">5/5 from 3 G2 reviews</a></figcaption></figure>
     </section>
@@ -1066,39 +1083,50 @@ html{scroll-padding-top:calc(var(--site-header-height,160px) + var(--site-filter
     </div>
 
     <section id="jobNotesPanel" class="job-notes-panel" aria-label="Prepare invoice from job notes" hidden>
-      <div class="section-head"><h2>Start from job notes</h2><button type="button" class="linklike" id="jobNotesClose">Close</button></div>
-      <p class="fine">Local parsing recognizes explicit work, quantities and rates. Notes stay in this tab unless you choose the optional Meta AI step below.</p>
+      <div class="section-head"><h2>Create an invoice from your work</h2><button type="button" class="linklike" id="jobNotesClose">Close</button></div>
+      <ol class="job-flow-steps" aria-label="Invoice from job notes"><li id="jobNotesStepEntry" aria-current="step">1. Add work</li><li id="jobNotesStepReview">2. Review draft</li><li>3. Invoice &amp; PDF</li></ol>
+      <div id="jobNotesEntryStep">
+      <p class="fine">Local parsing recognizes explicit work, quantities and rates. Optional AI drafting is powered by Meta (Muse Spark 1.3). Notes stay in this tab unless you choose that step below.</p>
       <label for="jobNotesInput">What did you do for the client?</label>
       <textarea id="jobNotesInput" rows="5" maxlength="12000" placeholder="For Example Studio&#10;6 hours of copy editing at $90/hour&#10;2 landing pages at $150/page"></textarea>
+      <div class="row job-capture-actions" id="jobNotesQuickAdd" hidden><button type="button" class="btn secondary" id="jobNotesRecord"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg><span id="jobNotesRecordLabel">Record voice note</span></button><button type="button" class="btn secondary" id="jobNotesUpload"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/></svg>Upload photo, PDF or audio</button></div>
       <details id="jobNotesIntake" hidden>
         <summary>Add a photo, PDF, voice note or agreed rates</summary>
         <p class="fine">Combine completed work with a quote or rate agreement. Files stay in this tab until you choose Meta; check every transcription before using it.</p>
-        <div class="row"><button type="button" class="btn secondary" id="jobNotesAddSource">Add another note</button><button type="button" class="btn secondary" id="jobNotesRecord">Record voice note</button></div>
+        <div class="row"><button type="button" class="btn secondary" id="jobNotesAddSource">Add another note</button></div>
         <label>Choose a photo, PDF or audio clip<input type="file" id="jobNotesFile" accept="image/jpeg,image/png,image/webp,application/pdf,audio/*"></label>
         <p class="fine">Up to 4 MB · PDFs up to 3 pages · Audio up to 60 seconds</p>
         <div id="jobNotesMediaPreview"></div><button type="button" class="linklike" id="jobNotesClearMedia">Remove selected file</button>
         <p id="jobNotesIntakeStatus" class="fine" role="status" aria-live="polite"></p>
         <div id="jobNotesSources"></div>
       </details>
+      <details id="jobNotesMetaOptions" hidden><summary>Use Meta AI for files or messy notes</summary>
       <div id="jobNotesMetaActions" hidden>
         <p class="fine">Optional Meta AI: send the selected file or confirmed source text through the MonkeeTools server to Meta Model API (Muse Spark 1.3). Your saved invoices, payment details and other browser data are not included. Meta's API data terms apply. You still review every proposed detail.</p>
         <label class="checkline"><input type="checkbox" id="jobNotesMetaConsent">Send these notes to Meta to suggest invoice details.</label>
         <p class="fine" id="jobNotesHumanDisclosure" hidden>Cloudflare checks that this request comes from a person. Its device and verification signals are separate from your job notes.</p>
         <div id="jobNotesHuman" hidden></div>
         <button type="button" class="btn" id="jobNotesMetaScan" disabled>Suggest details with Meta AI</button>
-        <p class="fine" id="jobNotesMetaStatus" role="status" aria-live="polite"></p>
+      </div></details>
+      <div class="row"><button type="button" class="btn primary" id="jobNotesScan">Create invoice draft</button><button type="button" class="linklike" id="jobNotesExample">Try a sample</button></div>
       </div>
-      <div class="row"><button type="button" class="btn primary" id="jobNotesScan">Find invoice details</button><button type="button" class="linklike" id="jobNotesExample">Try synthetic example</button></div>
+      <p class="fine" id="jobNotesMetaStatus" role="status" aria-live="polite"></p>
       <div id="jobNotesReview" hidden>
+        <button type="button" class="linklike" id="jobNotesBack">Back to job details</button>
         <div class="section-head"><h3 id="jobNotesReviewTitle" tabindex="-1">Confirm before using this draft</h3><button type="button" class="linklike" id="jobNotesDemoAnswers">Use demo answers</button></div>
         <p class="fine" id="jobNotesSummary"></p>
         <div id="jobNotesClarifications" hidden><h4>Clarify before billing</h4><ul id="jobNotesQuestions"></ul><p class="fine">Enter the confirmed answers in the work rows below, or leave that work off this draft. Edited values are your instructions.</p></div>
         <div id="jobNotesItems"></div>
         <details id="jobNotesOriginals" hidden><summary>Review all original source text</summary><div id="jobNotesOriginalTexts"></div></details>
+        <div class="job-review-subtotal" aria-live="polite" aria-atomic="true"><span class="fine">Priced work subtotal before tax</span><strong id="jobNotesSubtotal"></strong><p class="fine" id="jobNotesSubtotalDetail"></p></div>
         <div id="jobNotesUnparsed" hidden><p><strong>These notes were not interpreted:</strong></p><ul id="jobNotesUnparsedList"></ul><label class="checkline"><input type="checkbox" id="jobNotesUnparsedReviewed">I reviewed these notes and corrected the proposed work where needed.</label></div>
-        <div class="job-notes-grid">
+        <div class="job-notes-grid job-review-parties">
           <label>Client name<input id="jobNotesClient" autocomplete="off"></label>
           <label>Your business name<input id="jobNotesBusiness" autocomplete="off"></label>
+        </div>
+        <details class="job-invoice-details" id="jobNotesInvoiceDetails"><summary>Invoice details <span class="fine" id="jobNotesDefaultsSummary"></span></summary>
+        <p class="fine">Starting with the details in your current invoice. Check or change them here before confirming the draft.</p>
+        <div class="job-notes-grid">
           <label>Invoice number<input id="jobNotesNumber" autocomplete="off"></label>
           <label>Currency<select id="jobNotesCurrency"><option value="">Confirm currency</option><option>USD</option><option>EUR</option><option>GBP</option><option>CAD</option><option>AUD</option><option>JPY</option></select></label>
           <label>Invoice date<input type="date" id="jobNotesDate"></label>
@@ -1106,9 +1134,11 @@ html{scroll-padding-top:calc(var(--site-header-height,160px) + var(--site-filter
           <label>Tax treatment<select id="jobNotesTaxMode"><option value="">Confirm tax treatment</option><option value="none">No tax charged - confirmed</option><option value="percentage">Confirmed tax percentage</option></select></label>
           <label id="jobNotesTaxField" hidden>Tax rate (%)<input id="jobNotesTaxRate" inputmode="decimal"></label>
         </div>
+        </details>
         <label class="checkline" id="jobNotesReplaceRow" hidden><input type="checkbox" id="jobNotesReplace">Replace the invoice currently in the editor. Saved invoices stay as they are.</label>
         <label class="checkline" id="jobNotesClarifyRow" hidden><input type="checkbox" id="jobNotesClarified">I resolved missing or conflicting details, or left that work off this draft.</label>
         <label class="checkline"><input type="checkbox" id="jobNotesReviewed">I checked the work, names, currency, dates, payment terms and tax.</label>
+        <p class="fine" id="jobNotesReadiness" role="status" aria-live="polite"></p>
         <button type="button" class="btn primary" id="jobNotesApply">Use draft in invoice editor</button>
         <p class="fine">Continue with the existing preview, Save invoice draft and Download PDF controls. This step does not save, issue or send an invoice.</p>
       </div>
@@ -5124,6 +5154,18 @@ function mtInitBrandUI(){
     try{return JSON.parse(m.content);}catch{throw Error('The extraction did not contain valid JSON.');}
   }
   const words=s=>s.toLowerCase().match(/[a-z]{3,}/g)?.filter(w=>!['the','for','and','with','work','hours','hour','each','rate','per','agreed','completed'].includes(w))||[];
+  function sourceCandidates(lines,description,role){
+    return lines.filter(l=>words(description).some(w=>words(l.text).includes(w))).flatMap(l=>numericSpans(l.text).filter(x=>checkNumericEvidence({text:l.text,span:x.span,role,value:x.value})).map(x=>({...l,value:x.value,span:x.span})));
+  }
+  function reviewSubtotal(items){
+    let subtotal=0,pricedCount=0,needsDetails=0,excludedCount=0;
+    for(const item of items){
+      if(item.excluded){excludedCount++;continue;}
+      if(!String(item.description||'').trim()||![item.qty,item.rate].every(v=>typeof v==='string'&&decimal.test(v.trim())&&Number(v)<=1000000)){needsDetails++;continue;}
+      subtotal+=Number(item.qty)*Number(item.rate);pricedCount++;
+    }
+    return {subtotal,pricedCount,needsDetails,excludedCount,includedCount:pricedCount+needsDetails};
+  }
   function reconcile(sources,response){
     validateSources(sources);const data=completionData(response);
     if(!exactKeys(data,['clientName','project','lineItems'])||!Array.isArray(data.lineItems)||!data.lineItems.length||data.lineItems.length>12)throw Error('Expected one to twelve evidence-linked work items.');
@@ -5147,7 +5189,7 @@ function mtInitBrandUI(){
       const key=line.sourceId+':'+line.line;used.set(key,[...(used.get(key)||[]),description]);return {...line,quote:r.quote,span:matches[0].span};
     }
     function candidatesFor(description,role){
-      const candidates=lines.filter(l=>words(description).some(w=>words(l.text).includes(w))).flatMap(l=>numericSpans(l.text).filter(x=>checkNumericEvidence({text:l.text,span:x.span,role,value:x.value})).map(x=>Number(x.value)));
+      const candidates=sourceCandidates(lines,description,role).map(x=>Number(x.value));
       return [...new Set(candidates)].sort((a,b)=>a-b);
     }
     const items=data.lineItems.map((item,index)=>{
@@ -5176,9 +5218,10 @@ function mtInitBrandUI(){
       const descriptions=used.get(l.sourceId+':'+l.line)||[];
       return (descriptions.length?remainingClauses(l.text,descriptions):[l.text]).map(text=>({...l,text}));
     });
+    for(const question of questions){if(['qty','rate'].includes(question.field))question.candidates=sourceCandidates(lines,items[question.item].description,question.field==='qty'?'quantity':'unitPrice');}
     return {clientName,project,items,unparsed,questions,sources:sources.map(s=>({...s})),extraction:'multi_source_evidence_checked'};
   }
-  return {checkNumericEvidence,legacyEvidence,remainingClauses,validateSources,completionData,reconcile};
+  return {checkNumericEvidence,legacyEvidence,remainingClauses,validateSources,completionData,reviewSubtotal,reconcile};
 });
 
 /* Ephemeral multimodal intake. Nothing is uploaded until explicit consent + click. */
@@ -5236,25 +5279,28 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     finally{preparing=false;invalidate();}
   }
   $('jobNotesFile').addEventListener('change',event=>prepare(event.target.files[0]));
+  $('jobNotesUpload').addEventListener('click',()=>{$('jobNotesIntake').open=true;$('jobNotesFile').click();});
   $('jobNotesClearMedia').addEventListener('click',()=>{media=null;clearPreview();$('jobNotesFile').value='';notice('Selected file removed.');changed();});
   $('jobNotesAddSource').addEventListener('click',()=>{
     if(sources.length>=3){fail('Keep at most three additional sources.');return;}
     sources.push({label:'Additional note '+(sources.length+1),text:'',confirmed:false});render();changed();list.lastElementChild.querySelector('textarea').focus();
   });
-  function stopRecording(){if(stopTimer)clearTimeout(stopTimer);stopTimer=null;if(recorder?.state==='recording')recorder.stop();stream?.getTracks().forEach(t=>t.stop());stream=null;$('jobNotesRecord').textContent='Record voice note';}
+  function stopRecording(){if(stopTimer)clearTimeout(stopTimer);stopTimer=null;if(recorder?.state==='recording')recorder.stop();stream?.getTracks().forEach(t=>t.stop());stream=null;$('jobNotesRecordLabel').textContent='Record voice note';}
   $('jobNotesRecord').addEventListener('click',async()=>{
+    $('jobNotesIntake').open=true;
     if(recorder?.state==='recording'){stopRecording();return;}
     if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){fail('Voice recording is unavailable. Upload an audio clip or paste a transcript.');return;}
     const capture=++captureVersion;
     try{
       const granted=await navigator.mediaDevices.getUserMedia({audio:true});if(capture!==captureVersion){granted.getTracks().forEach(t=>t.stop());return;}stream=granted;const chunks=[];recorder=new MediaRecorder(stream);
       recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};recorder.onstop=()=>{const blob=new Blob(chunks,{type:recorder.mimeType});if(capture===captureVersion&&blob.size)prepare(new File([blob],'Voice note.webm',{type:blob.type}));};recorder.start();
-      $('jobNotesRecord').textContent='Stop recording';notice('Recording on this device. Stops after 60 seconds; nothing has been uploaded.');stopTimer=setTimeout(stopRecording,60000);
+      $('jobNotesRecordLabel').textContent='Stop recording';notice('Recording on this device. Stops after 60 seconds; nothing has been uploaded.');stopTimer=setTimeout(stopRecording,60000);
     }catch{stopRecording();fail('Microphone access was not granted. Upload a clip or paste a transcript.');}
   });
   window.addEventListener('pagehide',()=>{stopRecording();clearPreview();});
   return {
     operation:()=>media?'read':'reconcile',
+    hasSources:()=>sources.length>0,
     preparing:()=>preparing,
     request(){
       if(preparing||recorder?.state==='recording')throw Error('Finish preparing or recording the source first.');
@@ -5270,7 +5316,7 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     },
     close(){captureVersion++;stopRecording();version++;},
     reset(){captureVersion++;stopRecording();version++;sources=[];media=null;clearPreview();$('jobNotesFile').value='';render();notice('');invalidate();},
-    enable(){ $('jobNotesIntake').hidden=false; }
+    enable(){ $('jobNotesIntake').hidden=false;$('jobNotesQuickAdd').hidden=false; }
   };
 }};
 
@@ -5376,7 +5422,16 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     const hostedMetaEndpoint='';
     const metaEndpoint=location.protocol==='http:'&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/invoice-draft':hostedMetaEndpoint.startsWith('https://')?hostedMetaEndpoint:'';
     const metaButton=$('jobNotesMetaScan'),metaConsent=$('jobNotesMetaConsent'),metaStatus=$('jobNotesMetaStatus');
-    function metaControls(){metaButton.disabled=!metaReady||metaBusy||!metaConsent.checked||(metaHumanRequired&&!humanToken)||!!intake?.preparing();if(extendedReady)metaButton.textContent=intake?.operation()==='read'?'Read selected file with Meta':'Reconcile details with Meta';}
+    function metaControls(){
+      metaButton.disabled=!metaReady||metaBusy||!metaConsent.checked||(metaHumanRequired&&!humanToken)||!!intake?.preparing();
+      if(extendedReady)metaButton.textContent=intake?.operation()==='read'?'Read selected file with Meta':'Create invoice draft with Meta';
+      const needsMeta=extendedReady&&(intake?.operation()==='read'||intake?.hasSources());
+      $('jobNotesScan').hidden=!!needsMeta;
+      metaButton.classList.toggle('primary',$('jobNotesMetaOptions').open);
+      $('jobNotesScan').classList.toggle('primary',!$('jobNotesMetaOptions').open);
+    }
+    function entryStep(focus=false){$('jobNotesEntryStep').hidden=false;review.hidden=true;$('jobNotesStepEntry').setAttribute('aria-current','step');$('jobNotesStepReview').removeAttribute('aria-current');if(focus)$('jobNotesInput').focus({preventScroll:true});}
+    function reviewStep(){$('jobNotesEntryStep').hidden=true;review.hidden=false;$('jobNotesStepEntry').removeAttribute('aria-current');$('jobNotesStepReview').setAttribute('aria-current','step');panel.scrollIntoView({block:'start',behavior:'instant'});$('jobNotesReviewTitle').focus({preventScroll:true});}
     function clearHuman(){humanToken='';if(humanWidget!==null&&window.turnstile)window.turnstile.remove(humanWidget);humanWidget=null;$('jobNotesHuman').hidden=true;}
     async function prepareHuman(){
       if(!metaHumanRequired||!metaConsent.checked||!metaReady)return;
@@ -5397,6 +5452,16 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     }
     function expanded(open){['jobNotesPrimary','jobNotesSample'].forEach(id=>$(id).setAttribute('aria-expanded',String(open)));}
     function fail(message){error.textContent=message;error.hidden=false;}
+    function reviewItems(){return Array.from($('jobNotesItems').querySelectorAll('.job-notes-item')).map(row=>({...Object.fromEntries(Array.from(row.querySelectorAll('[data-job-key]')).map(input=>[input.dataset.jobKey,input.value])),excluded:row.querySelector('[data-job-omit]')?.checked===true}));}
+    function reviewAnswers(items){return {clientName:$('jobNotesClient').value,businessName:$('jobNotesBusiness').value,invoiceNumber:$('jobNotesNumber').value,currency:$('jobNotesCurrency').value,issueDate:$('jobNotesDate').value,termsDays:$('jobNotesTerms').value,taxMode:$('jobNotesTaxMode').value,taxRate:$('jobNotesTaxRate').value,reviewed:$('jobNotesReviewed').checked,clarified:$('jobNotesClarified').checked,reviewedUnparsed:$('jobNotesUnparsedReviewed').checked,items};}
+    function updateReviewSummary(){
+      if(!parsed)return;const items=reviewItems(),summary=MTJobEvidence.reviewSubtotal(items),currency=$('jobNotesCurrency').value;
+      $('jobNotesSubtotal').textContent=(currency?currency+' ':'')+summary.subtotal.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+      $('jobNotesSubtotalDetail').textContent=summary.pricedCount+' priced item'+(summary.pricedCount===1?'':'s')+' included'+(summary.needsDetails?' · '+summary.needsDetails+' need work, quantity or rate':'')+(summary.excludedCount?' · '+summary.excludedCount+' left off':'')+(currency?'':'. Confirm the currency below.');
+      $('jobNotesDefaultsSummary').textContent=[currency,$('jobNotesDate').value,$('jobNotesTerms').value!==''?'due in '+$('jobNotesTerms').value+' days':'confirm terms',$('jobNotesTaxMode').value==='none'?'no tax':$('jobNotesTaxMode').value==='percentage'?$('jobNotesTaxRate').value+'% tax':'confirm tax'].filter(Boolean).join(' · ');
+      try{jobNotesDraft(parsed,reviewAnswers(items.filter(item=>!item.excluded)));if((formEdited||invoiceHasContent())&&!$('jobNotesReplace').checked)throw Error('Confirm replacing the invoice currently in the editor.');$('jobNotesReadiness').textContent='Ready for the invoice editor. Nothing has been saved or sent.';}
+      catch(e){$('jobNotesReadiness').textContent='Next: '+e.message;}
+    }
     function close(){intake?.close();notesVersion++;metaConsent.checked=false;clearHuman();metaControls();panel.hidden=true;expanded(false);opener.focus({preventScroll:true});}
     function scan(){
       notesVersion++;
@@ -5432,14 +5497,15 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
       }catch(e){if(version===notesVersion){fail(e.name==='AbortError'?'Meta timed out. Its outcome is uncertain; no automatic retry was made. Your invoice has not changed.':e.message);metaStatus.textContent='No Meta draft was applied.';}}
       finally{clearTimeout(timer);metaBusy=false;metaConsent.checked=false;clearHuman();metaControls();}
     }
-    intake=MTJobIntake.create({$,fail,invalidate:()=>{notesVersion++;metaConsent.checked=false;clearHuman();parsed=null;review.hidden=true;metaControls();}});
+    intake=MTJobIntake.create({$,fail,invalidate:()=>{notesVersion++;metaConsent.checked=false;clearHuman();parsed=null;entryStep();if(intake?.operation()==='read'||intake?.hasSources())$('jobNotesMetaOptions').open=true;metaControls();}});
+    $('jobNotesMetaOptions').addEventListener('toggle',metaControls);
     metaConsent.addEventListener('change',()=>{if(metaConsent.checked)prepareHuman();else clearHuman();metaControls();});metaButton.addEventListener('click',metaScan);
     // A nonbillable capability read exposes no key and sends no invoice notes.
     if(metaEndpoint){
       fetch(metaEndpoint+'/status',{credentials:'omit',cache:'no-store'}).then(r=>r.ok?r.json():null).then(status=>{
         if(!status||status.model!=='muse-spark-1.3')return;
-        $('jobNotesMetaActions').hidden=false;extendedReady=status.capabilities?.includes('evidence-v2')===true;if(extendedReady){intake.enable();metaConsent.parentElement.lastChild.textContent='Send the selected file or confirmed source text to Meta for this request.';}metaReady=status.available===true;metaHumanRequired=status.humanVerification===true;$('jobNotesHumanDisclosure').hidden=!metaHumanRequired;metaControls();
-        if(status.configured)$('jobNotesConnectionStatus').textContent='Local by default · Optional Meta AI';
+        $('jobNotesMetaOptions').hidden=false;$('jobNotesMetaActions').hidden=false;extendedReady=status.capabilities?.includes('evidence-v2')===true;if(extendedReady){intake.enable();metaConsent.parentElement.lastChild.textContent='Send the selected file or confirmed source text to Meta for this request.';}metaReady=status.available===true;metaHumanRequired=status.humanVerification===true;$('jobNotesHumanDisclosure').hidden=!metaHumanRequired;metaControls();
+        if(status.configured)$('jobNotesConnectionStatus').textContent='Local by default · Powered by Meta';
         metaStatus.textContent=metaReady?(metaHumanRequired?'Meta connection ready. Choose consent to start the human check.':`Meta connection ready. Up to ${status.remaining} verification attempts remain in this local server session.`):status.reason==='test_verification_live_model_disabled'?'Staging uses test verification. Live Meta is disabled here; local parsing and PDF export still work.':'Live Meta suggestions are unavailable here. Local parsing still works.';
       }).catch(()=>{});
     }
@@ -5447,11 +5513,27 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
       parsed=proposal;error.hidden=true;
       $('jobNotesClient').value=parsed.clientName;
       $('jobNotesBusiness').value=value('businessName');$('jobNotesNumber').value=value('invoiceNumber');
-      ['Currency','Date','Terms','TaxMode','TaxRate'].forEach(suffix=>{$('jobNotes'+suffix).value='';});
-      $('jobNotesTaxField').hidden=true;$('jobNotesReviewed').checked=false;$('jobNotesUnparsedReviewed').checked=false;$('jobNotesReplace').checked=false;
+      $('jobNotesCurrency').value=value('currency');$('jobNotesDate').value=value('issueDate');
+      const terms=(Date.parse(value('dueDate')+'T00:00:00Z')-Date.parse(value('issueDate')+'T00:00:00Z'))/86400000;
+      $('jobNotesTerms').value=Number.isInteger(terms)&&terms>=0&&terms<=3650?String(terms):'';
+      const tax=value('taxRate');$('jobNotesTaxRate').value=tax;$('jobNotesTaxMode').value=/^\d+(?:\.\d{1,2})?$/.test(tax)&&Number(tax)<=100?(Number(tax)===0?'none':'percentage'):'';
+      $('jobNotesInvoiceDetails').open=!$('jobNotesCurrency').value||!$('jobNotesDate').value||!$('jobNotesTerms').value||!$('jobNotesTaxMode').value;
+      $('jobNotesTaxField').hidden=$('jobNotesTaxMode').value!=='percentage';$('jobNotesReviewed').checked=false;$('jobNotesUnparsedReviewed').checked=false;$('jobNotesReplace').checked=false;
       $('jobNotesReplaceRow').hidden=!(formEdited||invoiceHasContent());
       $('jobNotesItems').replaceChildren();$('jobNotesClarifications').hidden=!parsed.questions?.length;$('jobNotesClarifyRow').hidden=!parsed.questions?.length;$('jobNotesClarified').checked=false;$('jobNotesQuestions').replaceChildren();
-      (parsed.questions||[]).forEach(question=>{const li=document.createElement('li');li.textContent=question.label+(question.options?.length?' Source '+(question.field==='qty'?'quantities':'rates')+': '+question.options.join(', ')+'.':'');$('jobNotesQuestions').append(li);});
+      (parsed.questions||[]).forEach((question,index)=>{
+        const li=document.createElement('li');li.textContent=question.label+(question.options?.length?' Source '+(question.field==='qty'?'quantities':'rates')+': '+question.options.join(', ')+'.':'');
+        if(question.candidates?.length){
+          const choices=document.createElement('ul');choices.className='job-source-choices';
+          (question.options||[]).slice(0,8).forEach((value,choiceIndex)=>{
+            const option=document.createElement('li'),button=document.createElement('button'),proof=document.createElement('small');button.type='button';button.className='btn secondary';button.textContent='Use '+value;button.dataset.jobChoice=question.field;
+            button.setAttribute('aria-label','Use '+value+' as '+(question.field==='qty'?'quantity':'rate')+' for '+parsed.items[question.item].description);proof.className='fine';proof.id='jobSourceChoice-'+index+'-'+choiceIndex;button.setAttribute('aria-describedby',proof.id);
+            proof.textContent=question.candidates.filter(candidate=>Number(candidate.value)===value).map(candidate=>candidate.label+', line '+candidate.line+': “'+candidate.text+'”').join(' · ');
+            button.addEventListener('click',()=>{const row=$('jobNotesItems').querySelector('[data-job-index="'+question.item+'"]'),input=row.querySelector('[data-job-key="'+question.field+'"]');input.value=String(value);input.dispatchEvent(new Event('input',{bubbles:true}));input.focus({preventScroll:true});});option.append(button,proof);choices.append(option);
+          });li.append(choices);
+        }
+        $('jobNotesQuestions').append(li);
+      });
       $('jobNotesOriginals').hidden=!parsed.sources;$('jobNotesOriginalTexts').replaceChildren();
       (parsed.sources||[]).forEach(source=>{const title=document.createElement('h4');title.textContent=source.label;const pre=document.createElement('pre');pre.textContent=source.text;$('jobNotesOriginalTexts').append(title,pre);});
       parsed.items.forEach((item,index)=>{
@@ -5462,33 +5544,34 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
           input.setAttribute('aria-label',`Proposed item ${index+1} ${label.toLowerCase()}`);if(key!=='description')input.inputMode='decimal';
           wrapper.append(input);row.append(wrapper);
         }
-        const source=document.createElement('p');source.className='fine';source.textContent=item.evidence?Object.entries(item.evidence).map(([field,proof])=>`${field==='qty'?'Quantity':field==='rate'?'Rate':'Work'} — ${proof.label}, line ${proof.line}: “${proof.quote}”`).join(' · '):`Note ${item.source.line}: ${item.source.text}`;row.append(source);
+        const evidence=document.createElement('details');evidence.className='job-item-evidence';const evidenceTitle=document.createElement('summary');evidenceTitle.textContent='See source evidence';const source=document.createElement('p');source.className='fine';source.textContent=item.evidence?Object.entries(item.evidence).map(([field,proof])=>`${field==='qty'?'Quantity':field==='rate'?'Rate':'Work'} - ${proof.label}, line ${proof.line}: "${proof.quote}"`).join(' · '):`Note ${item.source.line}: ${item.source.text}`;evidence.append(evidenceTitle,source);row.append(evidence);
         if(parsed.questions?.some(q=>q.item===index)){const label=document.createElement('label');label.className='checkline job-omit';const omit=document.createElement('input');omit.type='checkbox';omit.dataset.jobOmit='true';label.append(omit,document.createTextNode('Leave this work off this draft'));row.append(label);}
         $('jobNotesItems').append(row);
       });
       $('jobNotesSummary').textContent=`${parsed.items.length} work item${parsed.items.length===1?'':'s'} found. Confirm names, currency, invoice number, date, payment terms and tax before using this draft.`;
       $('jobNotesUnparsed').hidden=!parsed.unparsed.length;$('jobNotesUnparsedList').replaceChildren();
       parsed.unparsed.forEach(source=>{const li=document.createElement('li');li.textContent=`${source.label?source.label+', ':''}Line ${source.line}: ${source.text}`;$('jobNotesUnparsedList').append(li);});
-      review.hidden=false;$('jobNotesReviewTitle').focus({preventScroll:true});
+      updateReviewSummary();reviewStep();
     }
-    function openPanel(event){opener=event?.currentTarget||$('jobNotesPrimary');panel.hidden=false;expanded(true);$('jobNotesInput').focus();panel.scrollIntoView({block:'start',behavior:'instant'});}
+    function openPanel(event){opener=event?.currentTarget||$('jobNotesPrimary');panel.hidden=false;expanded(true);if(event?.currentTarget===$('jobNotesSample')&&!review.hidden)reviewStep();else entryStep(true);panel.scrollIntoView({block:'start',behavior:'instant'});}
     function exampleNotes(){intake?.reset();metaConsent.checked=false;clearHuman();metaControls();$('jobNotesInput').value='For Example Studio\nProject: October website copy\n6 hours of copy editing at $90/hour\n2 landing pages at $150/page';scan();}
     function demoAnswers(){
       const examples={Business:'Demo Freelance Studio',Number:'DEMO-2026-101',Currency:'USD',Date:'2026-10-26',Terms:'14',TaxMode:'none',TaxRate:'0'};
-      Object.entries(examples).forEach(([suffix,value])=>{$('jobNotes'+suffix).value=value;});$('jobNotesReviewed').checked=false;$('jobNotesTaxField').hidden=true;
+      Object.entries(examples).forEach(([suffix,value])=>{$('jobNotes'+suffix).value=value;});$('jobNotesReviewed').checked=false;$('jobNotesTaxField').hidden=true;updateReviewSummary();
     }
     $('jobNotesPrimary').addEventListener('click',openPanel);
     $('jobNotesSample').addEventListener('click',event=>{exampleNotes();demoAnswers();openPanel(event);});
     $('jobNotesClose').addEventListener('click',close);$('jobNotesScan').addEventListener('click',scan);
+    $('jobNotesBack').addEventListener('click',()=>{entryStep(true);panel.scrollIntoView({block:'start',behavior:'instant'});});
     $('jobNotesExample').addEventListener('click',exampleNotes);
     $('jobNotesInput').addEventListener('input',()=>{notesVersion++;metaConsent.checked=false;clearHuman();metaControls();parsed=null;review.hidden=true;error.hidden=true;});
-    review.addEventListener('input',event=>{if(event.target!==$('jobNotesReviewed'))$('jobNotesReviewed').checked=false;if(![$('jobNotesClarified'),$('jobNotesReviewed')].includes(event.target))$('jobNotesClarified').checked=false;error.hidden=true;$('jobNotesTaxField').hidden=$('jobNotesTaxMode').value!=='percentage';});
+    review.addEventListener('input',event=>{if(event.target!==$('jobNotesReviewed'))$('jobNotesReviewed').checked=false;if(![$('jobNotesClarified'),$('jobNotesReviewed')].includes(event.target))$('jobNotesClarified').checked=false;error.hidden=true;$('jobNotesTaxField').hidden=$('jobNotesTaxMode').value!=='percentage';updateReviewSummary();});
     $('jobNotesDemoAnswers').addEventListener('click',demoAnswers);
     $('jobNotesApply').addEventListener('click',()=>{
       if(!parsed)return;error.hidden=true;
       try{
-        const items=Array.from($('jobNotesItems').querySelectorAll('.job-notes-item')).filter(row=>!row.querySelector('[data-job-omit]')?.checked).map(row=>Object.fromEntries(Array.from(row.querySelectorAll('[data-job-key]')).map(input=>[input.dataset.jobKey,input.value])));
-        const patch=jobNotesDraft(parsed,{clientName:$('jobNotesClient').value,businessName:$('jobNotesBusiness').value,invoiceNumber:$('jobNotesNumber').value,currency:$('jobNotesCurrency').value,issueDate:$('jobNotesDate').value,termsDays:$('jobNotesTerms').value,taxMode:$('jobNotesTaxMode').value,taxRate:$('jobNotesTaxRate').value,reviewed:$('jobNotesReviewed').checked,clarified:$('jobNotesClarified').checked,reviewedUnparsed:$('jobNotesUnparsedReviewed').checked,items});
+        const items=reviewItems().filter(item=>!item.excluded);
+        const patch=jobNotesDraft(parsed,reviewAnswers(items));
         if((formEdited||invoiceHasContent())&&!$('jobNotesReplace').checked){$('jobNotesReplaceRow').hidden=false;fail('Confirm replacing the invoice currently in the editor, or close this panel to keep it.');return;}
         resetInvoice();
         for(const id of ['clientName','businessName','invoiceNumber','currency','issueDate','dueDate','taxRate','notes','payment'])$(id).value=patch[id];

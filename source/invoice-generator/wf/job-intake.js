@@ -53,25 +53,28 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     finally{preparing=false;invalidate();}
   }
   $('jobNotesFile').addEventListener('change',event=>prepare(event.target.files[0]));
+  $('jobNotesUpload').addEventListener('click',()=>{$('jobNotesIntake').open=true;$('jobNotesFile').click();});
   $('jobNotesClearMedia').addEventListener('click',()=>{media=null;clearPreview();$('jobNotesFile').value='';notice('Selected file removed.');changed();});
   $('jobNotesAddSource').addEventListener('click',()=>{
     if(sources.length>=3){fail('Keep at most three additional sources.');return;}
     sources.push({label:'Additional note '+(sources.length+1),text:'',confirmed:false});render();changed();list.lastElementChild.querySelector('textarea').focus();
   });
-  function stopRecording(){if(stopTimer)clearTimeout(stopTimer);stopTimer=null;if(recorder?.state==='recording')recorder.stop();stream?.getTracks().forEach(t=>t.stop());stream=null;$('jobNotesRecord').textContent='Record voice note';}
+  function stopRecording(){if(stopTimer)clearTimeout(stopTimer);stopTimer=null;if(recorder?.state==='recording')recorder.stop();stream?.getTracks().forEach(t=>t.stop());stream=null;$('jobNotesRecordLabel').textContent='Record voice note';}
   $('jobNotesRecord').addEventListener('click',async()=>{
+    $('jobNotesIntake').open=true;
     if(recorder?.state==='recording'){stopRecording();return;}
     if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){fail('Voice recording is unavailable. Upload an audio clip or paste a transcript.');return;}
     const capture=++captureVersion;
     try{
       const granted=await navigator.mediaDevices.getUserMedia({audio:true});if(capture!==captureVersion){granted.getTracks().forEach(t=>t.stop());return;}stream=granted;const chunks=[];recorder=new MediaRecorder(stream);
       recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};recorder.onstop=()=>{const blob=new Blob(chunks,{type:recorder.mimeType});if(capture===captureVersion&&blob.size)prepare(new File([blob],'Voice note.webm',{type:blob.type}));};recorder.start();
-      $('jobNotesRecord').textContent='Stop recording';notice('Recording on this device. Stops after 60 seconds; nothing has been uploaded.');stopTimer=setTimeout(stopRecording,60000);
+      $('jobNotesRecordLabel').textContent='Stop recording';notice('Recording on this device. Stops after 60 seconds; nothing has been uploaded.');stopTimer=setTimeout(stopRecording,60000);
     }catch{stopRecording();fail('Microphone access was not granted. Upload a clip or paste a transcript.');}
   });
   window.addEventListener('pagehide',()=>{stopRecording();clearPreview();});
   return {
     operation:()=>media?'read':'reconcile',
+    hasSources:()=>sources.length>0,
     preparing:()=>preparing,
     request(){
       if(preparing||recorder?.state==='recording')throw Error('Finish preparing or recording the source first.');
@@ -87,6 +90,6 @@ window.MTJobIntake={create:function({$,invalidate,fail}){
     },
     close(){captureVersion++;stopRecording();version++;},
     reset(){captureVersion++;stopRecording();version++;sources=[];media=null;clearPreview();$('jobNotesFile').value='';render();notice('');invalidate();},
-    enable(){ $('jobNotesIntake').hidden=false; }
+    enable(){ $('jobNotesIntake').hidden=false;$('jobNotesQuickAdd').hidden=false; }
   };
 }};
