@@ -147,7 +147,7 @@
     "PROVENANCE.json"
   ],
   "public_build": "Sanitized offline staging-derived build; not byte-for-byte production.",
-  "publication_state": "reviewed_same_scope_refresh_full_pr_linux_passed",
+  "publication_state": "public_same_scope_refresh_and_final_production_verified",
   "license_grant": "No new MonkeeTools license grant.",
   "release_evidence": {
     "commit": "9a6b27cc68f722a13b83b04bc28fd4e29446fcc0",
@@ -186,7 +186,19 @@
     "canonical_main_candidate": {
       "commit": "327b0202cc633a5ca3b3b5a2723a05b24600db97",
       "tree": "22436db325f82e0b5a22d0e634ce976163f2df9e",
-      "state": "merged; fresh main validation and release pending"
+      "state": "full main Linux passed; staging and production successful; hosted smoke passed",
+      "main_linux_run": 41946371411,
+      "staging_run": 41947958744,
+      "production_run": 41948563434
+    },
+    "final_production": {
+      "commit": "327b0202cc633a5ca3b3b5a2723a05b24600db97",
+      "receipt_state": "verified_control_plane",
+      "receipt_sha256": "eba7322306a7c0eadc96b7516508e36a3f9e67037c353ae4d15b78e2244172e5",
+      "controller_public_http_verified": false,
+      "separate_hosted_smoke": "passed: public marker matches; notes/voice/file entry visible; unchecked review preserves invoice; reviewed sample yields2 items/$840",
+      "new_provider_calls": 0,
+      "live_url": "https://monkeetools.pages.dev/"
     }
   },
   "new_live_media_proof": "Actual synthetic PNG/PDF/WAV reads and subsequent reviewed reconciliation verified; recording uses no new inference.",
